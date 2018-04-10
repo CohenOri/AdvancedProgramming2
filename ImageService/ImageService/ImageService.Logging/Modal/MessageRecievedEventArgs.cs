@@ -10,5 +10,16 @@ namespace ImageService.Logging.Modal
     {
         public MessageTypeEnum Status { get; set; }
         public string Message { get; set; }
+
+        /// <summary>
+        /// C'tor for MessageRecievedEventArgs, recevies message and type of her
+        /// </summary>
+        /// <param name="message">string contain the message</param>
+        /// <param name="status">what kind of message (INFO, WARNING, FAIL)</param>
+        public MessageRecievedEventArgs(string message, MessageTypeEnum status)
+        {
+            this.Message = message;
+            this.Status = status;
+        }
     }
 }
