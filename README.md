@@ -1,1 +1,1 @@
-Advanced Programming 2 course code
+Advanced Programming 2 course code.
