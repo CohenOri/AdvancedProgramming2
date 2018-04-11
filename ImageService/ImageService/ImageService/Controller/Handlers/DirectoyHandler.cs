@@ -131,6 +131,7 @@ namespace ImageService.Controller.Handlers
                 this.m_dirWatcher.Created -= DirChanged;
                 this.m_dirWatcher.Changed -= DirChanged;
                 this.m_dirWatcher.EnableRaisingEvents = false;
+                m_logging.Log("directory " + this.m_path + "closed successfully", MessageTypeEnum.INFO);
             }
             catch (IOException e)
             {
