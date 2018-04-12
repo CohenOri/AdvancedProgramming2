@@ -75,7 +75,19 @@ namespace ImageService
             this.controller = new ImageController(this.modal);
             this.m_imageServer = new ImageServer(this.controller, this.logging);
             //create eventlooger to update the system.
+            if (args.Count() > 0)
+            {
+                eventSourceName = args[0];
+            }
+            if (args.Count() > 1)
+            {
+                logName = args[1];
+            }
             eventLog1 = new System.Diagnostics.EventLog();
+            if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
+            {
+                System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
+            }
 
             if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
             {
@@ -122,7 +134,7 @@ namespace ImageService
             //im trying to stop.
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
-            serviceStatus.dwWaitHint = 100;
+            serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
             //send massage to servers event that service stopped.
@@ -154,7 +166,7 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            //write events massage.
+            //write event massage.
             eventLog1.WriteEntry(e.Message);
         }
     }
