@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
+
 using ImageService.Server;
 using ImageService.Controller;
 using ImageService.Modal;
@@ -55,31 +56,43 @@ namespace ImageService
         };
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
-
+        /// <summary>
+        /// c'tor instelize all members from arguments of app config
+        /// </summary>
+        /// <param name="args"></param>
         public ImageService(string[] args)
         {
             InitializeComponent();
-            string eventSourceName = "MySource";
-            string logName = "MyNewLog";
-            if (args.Count() > 0)
-            {
-                eventSourceName = args[0];
-            }
-            if (args.Count() > 1)
-            {
-                logName = args[1];
-            }
+            //get info fro, app config to set the varibles.
+            string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
+            int thumpNailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+            string eventSourceName = ConfigurationManager.AppSettings["SourceName"];
+            string logName = ConfigurationManager.AppSettings["ImageServiceLog"];
+            
+            //create logger server, modal. controller and server.
+            this.modal = new ImageServiceModal(outPutDir, thumpNailSize);
+            this.logging = new LoggingService();
+            this.controller = new ImageController(this.modal);
+            this.m_imageServer = new ImageServer(this.controller, this.logging);
+            //create eventlooger to update the system.
             eventLog1 = new System.Diagnostics.EventLog();
+
             if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
             {
                 System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
             }
+            //set log and sourse names.
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
+            // listen to the server updates.
+            logging.MessageRecieved += OnUpDateService;
         }
 
 
-
+        /// <summary>
+        /// start server's action.
+        /// </summary>
+        /// <param name="args"></param>
         protected override void OnStart(string[] args)
         {
             // Update the service state to Start Pending.  
@@ -99,7 +112,9 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
         }
-
+        /// <summary>
+        /// stop the server, update the event and send message to server to close.
+        /// </summary>
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
@@ -107,19 +122,40 @@ namespace ImageService
             //im trying to stop.
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
-            serviceStatus.dwWaitHint = 100000;
+            serviceStatus.dwWaitHint = 100;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            //send massage to servers event that service stopped.
+            this.m_imageServer.CloseAllHndlers(new CommandRecievedEventArgs(
+                            (int) Infrastructure.Enums.CommandEnum.CloseCommand, null, null));
+            //stop lisening to loggers updates.
+            logging.MessageRecieved -= OnUpDateService;
         }
 
-        protected override void OnContinue()
-        {
-            eventLog1.WriteEntry("In OnContinue.");
-        }
-
+        /// <summary>
+        /// timer monitor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
             // TODO: Insert monitoring activities here.  
             eventLog1.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
+        }
+        /// <summary>
+        /// update the service logger event.
+        /// </summary>
+        /// <param name="sender></param>
+        /// <param name="e" val=MessageRecievedEventArgs></param>
+        public void OnUpDateService(object sender, MessageRecievedEventArgs e)
+        {
+            // Update the service state to Start Pending.  
+            ServiceStatus serviceStatus = new ServiceStatus();
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
+            serviceStatus.dwWaitHint = 100000;
+            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+            //write events massage.
+            eventLog1.WriteEntry(e.Message);
         }
     }
 }

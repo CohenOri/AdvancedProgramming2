@@ -29,10 +29,11 @@ namespace ImageService.Controller.Handlers
         /// </summary>
         /// <param name="imageController">imageController</param>
         /// <param name="logger">Logging Service</param>
-        public DirectoyHandler(IImageController imageController, ILoggingService logger)
+        public DirectoyHandler(IImageController imageController, ILoggingService logger, string dirPath)
         {
             this.m_controller = imageController;
             this.m_logging = logger;
+            StartHandleDirectory(dirPath);
         }
 
         /// <summary>
