@@ -113,12 +113,7 @@ namespace ImageService
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            eventLog1.WriteEntry("In OnStart");
-            // Set up a timer to trigger every minute.  
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 60000; // 60 seconds  
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
-            timer.Start();
+            eventLog1.WriteEntry("Start Image service");
 
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
@@ -129,31 +124,23 @@ namespace ImageService
         /// </summary>
         protected override void OnStop()
         {
-            eventLog1.WriteEntry("In onStop.");
+            eventLog1.WriteEntry("Stop Service: close handlers");
 
-            //im trying to stop.
+            //update service to state stop.
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            //send massage to servers event that service stopped.
+            //send massage to server that service stopped.
             this.m_imageServer.CloseAllHndlers(new CommandRecievedEventArgs(
                             (int) Infrastructure.Enums.CommandEnum.CloseCommand, null, null));
             //stop lisening to loggers updates.
             logging.MessageRecieved -= OnUpDateService;
+            //inform log event of end of operations
+            eventLog1.WriteEntry("End of service-good bye");
         }
 
-        /// <summary>
-        /// timer monitor
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
-        {
-            // TODO: Insert monitoring activities here.  
-            eventLog1.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
-        }
         /// <summary>
         /// update the service logger event.
         /// </summary>
@@ -161,13 +148,14 @@ namespace ImageService
         /// <param name="e" val=MessageRecievedEventArgs></param>
         public void OnUpDateService(object sender, MessageRecievedEventArgs e)
         {
+            string[] status = { "INFO", "WARNING", "FAIL" };
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
             //write event massage.
-            eventLog1.WriteEntry(e.Message);
+            eventLog1.WriteEntry(status[(int) e.Status]+ ": " + e.Message);
         }
     }
 }

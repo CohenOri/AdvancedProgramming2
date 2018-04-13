@@ -39,8 +39,12 @@ namespace ImageService.Modal
             // file doesn't exist
             if (!File.Exists(path))
             {
-                result = false;
-                return "File doesn't Exsist";
+                System.Threading.Thread.Sleep(10000);
+                if (!File.Exists(path))
+                {
+                    result = false;
+                    return "File doesn't Exsist";
+                }
             }
             // file exist, we need to find out photo "taken time" or at least creation time (which anyfile should have)
             DateTime date = new DateTime();
@@ -96,7 +100,8 @@ namespace ImageService.Modal
                     // stop counting when extention isn't in use
                     if (File.Exists(fullTargetPath + fullFileName))
                     {
-                        fullFileName = fileNameWithoutExtention + " (" + extentionCounter + ")";
+                        string[] parts = fullFileName.Split('.');
+                        fullFileName = fileNameWithoutExtention + " (" + extentionCounter + ")." + parts[1];
                         extentionCounter++;
                     }
                     else

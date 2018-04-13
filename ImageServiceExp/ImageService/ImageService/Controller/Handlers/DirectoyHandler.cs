@@ -47,7 +47,7 @@ namespace ImageService.Controller.Handlers
             this.m_dirWatcher = new FileSystemWatcher(dirPath);
             // ***in case something goes wrong we might need to use new FileSystemEventHandler(DirChanged)***
             // add trackers to execute when directory changes
-            this.m_dirWatcher.Changed += DirChanged;
+          //  this.m_dirWatcher.Changed += DirChanged;
             this.m_dirWatcher.Created += DirChanged;
             this.m_dirWatcher.EnableRaisingEvents = true;
         }
@@ -97,12 +97,12 @@ namespace ImageService.Controller.Handlers
                     // check command status in order to inform logger
                     if (resultSuccesful)
                     {
-                        m_logging.Log("Command: " + e.CommandID + " executed successfully", MessageTypeEnum.INFO);
+                        m_logging.Log("Command ID: " + e.CommandID + " executed successfully to:"+ message, MessageTypeEnum.INFO);
                     }
                     else
                     {
                         // command failed
-                        m_logging.Log("Command: " + e.CommandID + " has failed, '" + message + "' args were: ", MessageTypeEnum.FAIL);
+                        m_logging.Log("Command ID: " + e.CommandID + " has failed, '" + message + "' args were: ", MessageTypeEnum.FAIL);
                         foreach (string arg in e.Args)
                         {
                             m_logging.Log(arg, MessageTypeEnum.FAIL);
@@ -113,7 +113,7 @@ namespace ImageService.Controller.Handlers
             else
             {
                 // close command
-                m_logging.Log("Recevied Close Command", MessageTypeEnum.INFO);
+                m_logging.Log("Recevied Close Command for path:" + this.m_path, MessageTypeEnum.INFO);
                 // finish handle the directory
                 CloseDirectory();
                 return;
@@ -130,9 +130,10 @@ namespace ImageService.Controller.Handlers
             {
                 // ***in case something goes wrong we might need to use new FileSystemEventHandler(DirChanged)***
                 this.m_dirWatcher.Created -= DirChanged;
-                this.m_dirWatcher.Changed -= DirChanged;
+             //   this.m_dirWatcher.Changed -= DirChanged;
                 this.m_dirWatcher.EnableRaisingEvents = false;
-                m_logging.Log("directory " + this.m_path + "closed successfully", MessageTypeEnum.INFO);
+                //inform event logger of seccessfull close
+                m_logging.Log("Directory " + this.m_path + "closed successfully", MessageTypeEnum.INFO);
             }
             catch (IOException e)
             {
