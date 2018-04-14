@@ -39,8 +39,12 @@ namespace ImageService.Modal
             // file doesn't exist
             if (!File.Exists(path))
             {
-                result = false;
-                return "File doesn't Exsist";
+                System.Threading.Thread.Sleep(10000);
+                if (!File.Exists(path))
+                {
+                    result = false;
+                    return "File doesn't Exsist";
+                }
             }
             // file exist, we need to find out photo "taken time" or at least creation time (which anyfile should have)
             DateTime date = new DateTime();
@@ -65,7 +69,10 @@ namespace ImageService.Modal
             try
             {
                 // create output directory (if doesn't doesn't exist already)
-                Directory.CreateDirectory(m_OutputFolder);
+                DirectoryInfo di = Directory.CreateDirectory(m_OutputFolder);
+                //if the folder isnt hidden-flag it hide
+                if ((di.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+                    di.Attributes |= FileAttributes.Hidden;
                 // create thumbnail directory (if doesn't doesn't exist already)
                 string thumbnailsPath = m_OutputFolder + "\\" + "Thumbnails";
                 Directory.CreateDirectory(thumbnailsPath);
@@ -78,7 +85,7 @@ namespace ImageService.Modal
 
                 // create subfolders
                 Directory.CreateDirectory(m_OutputFolder + yearAndMonthPath);
-                Directory.CreateDirectory(thumbnailsPath + yearAndMonthPath);
+                DirectoryInfo diThunb =  Directory.CreateDirectory(thumbnailsPath + yearAndMonthPath);
 
                 string fullTargetPath = m_OutputFolder + "\\" + year.ToString() + "\\" + month.ToString() + "\\";
                 string fullThumbnailsTargetPath = thumbnailsPath + "\\" + year.ToString() + "\\" + month.ToString() + "\\";
@@ -96,7 +103,8 @@ namespace ImageService.Modal
                     // stop counting when extention isn't in use
                     if (File.Exists(fullTargetPath + fullFileName))
                     {
-                        fullFileName = fileNameWithoutExtention + " (" + extentionCounter + ")";
+                        string[] parts = fullFileName.Split('.');
+                        fullFileName = fileNameWithoutExtention + " (" + extentionCounter + ")." + parts[1];
                         extentionCounter++;
                     }
                     else
