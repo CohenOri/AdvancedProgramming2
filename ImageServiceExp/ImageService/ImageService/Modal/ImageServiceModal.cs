@@ -109,8 +109,17 @@ namespace ImageService.Modal
                         break;
                     }
                 }
-                // moves the file (it doesn't exist if reached here)
-                File.Move(path, fullTargetPath + fullFileName);
+
+                 try
+                {
+                    // moves the file (it doesn't exist if reached here)
+                    File.Move(path, fullTargetPath + fullFileName);
+                }
+                 catch(IOException e)//if the file is in use of other thread-wait and try again.
+                {
+                    System.Threading.Thread.Sleep(500);
+                    File.Move(path, fullTargetPath + fullFileName);
+                }
 
                 // create thumbnail if not exist already
                 if (!File.Exists(fullThumbnailsTargetPath + fullFileName))
