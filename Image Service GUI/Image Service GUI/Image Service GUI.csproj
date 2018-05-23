@@ -55,7 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\MessageTypeEnum.cs" />
+    <Compile Include="ViewModel\LogRecord.cs" />
+    <Compile Include="ViewModel\LogVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="ViewModel\MessageTypeToBackgroundConverter.cs" />
     <Compile Include="ViewModel\SettingsVM.cs" />
     <Compile Include="View\LogUserControl.xaml.cs">
       <DependentUpon>LogUserControl.xaml</DependentUpon>

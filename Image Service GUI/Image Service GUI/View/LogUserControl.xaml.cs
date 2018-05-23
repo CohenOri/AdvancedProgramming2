@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Image_Service_GUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,9 +24,15 @@ namespace Image_Service_GUI.View
         public LogUserControl()
         {
             InitializeComponent();
+            this.DataContext = new LogVM();
         }
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

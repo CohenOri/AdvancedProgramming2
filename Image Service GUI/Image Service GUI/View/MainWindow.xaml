@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Image_Service_GUI.View"
-        xmlns:localVM="clr-namespace:Image_Service_GUI.ViewModel"
         x:Class="Image_Service_GUI.View.MainWindow"
         mc:Ignorable="d"
-        Title="Image Service" Height="350" Width="600" Background="{Binding localVM:VM_BackgroundColor}">
+        Title="Image Service" Height="350" Width="600" Background="{Binding VM_BackgroundColor}">
     
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" Margin="10,0,10,5" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged" Height="Auto" Width="Auto">

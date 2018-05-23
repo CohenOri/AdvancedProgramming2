@@ -69,9 +69,9 @@ namespace Image_Service_GUI.View
         {
             // READ FROM FILE
             //this.outDir.Text = "sss";
-            this.srcName.Text = "d";
-            this.logName.Text = "a";
-            this.thumbnailSize.Text = "B";
+            //this.srcName.Text = "d";
+            //this.logName.Text = "a";
+            //this.thumbnailSize.Text = "B";
         }
 
 

@@ -4,37 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Image_Service_GUI.View"
+             xmlns:local2="clr-namespace:Image_Service_GUI.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-
-
-    <Grid Background="Ivory" Margin="0">
-        <StackPanel HorizontalAlignment="Center"  VerticalAlignment="Top">
-            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" Text="Logs" Foreground="#FF0068FF" FontSize="30"/>
-            <ListView Name="logsView" HorizontalAlignment="Center" Height="200" Margin="10,0" VerticalAlignment="Top" SelectionChanged="listView_SelectionChanged">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Type" Width="100">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate x:Name="msgType">
-                                    <TextBlock TextWrapping="Wrap" Text="aaaaaaaaaaaaaa" HorizontalAlignment="Stretch" Background="Green"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Message" Width="400">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate x:Name="msg">
-                                    <TextBlock TextWrapping="Wrap" Text="bbbbbb" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-                <Border BorderBrush="Black" BorderThickness="1" Height="6" Width="1"/>
-            </ListView>
-        </StackPanel>
-    </Grid>
+    <DockPanel Background="Ivory" Margin="0">
+        <DockPanel.Resources>
+            <local2:MessageTypeToBackgroundConverter x:Key="MessageTypeToBackgroundConverter"/>
+        </DockPanel.Resources>
+        <Label Content="Logs" FontSize="20" HorizontalAlignment="Center" Foreground="Blue" DockPanel.Dock="Top"/>
+        <DataGrid ItemsSource="{Binding LogList}" AutoGenerateColumns="False" Background="LightGoldenrodYellow"  ScrollViewer.CanContentScroll="True" Width="Auto" Height="Auto" Margin="10,0,10,20" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Type" Width="Auto" IsReadOnly="True" Binding="{Binding MsgType}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Background" Value="{Binding Path=MsgType, Converter={StaticResource MessageTypeToBackgroundConverter}}"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Message" Binding="{Binding Msg}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 
 
 

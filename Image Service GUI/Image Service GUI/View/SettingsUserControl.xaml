@@ -17,15 +17,15 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock Text="Source Name:  " FontFamily="Segoe UI Black" FontSize="20" Margin="10,0,0,0" VerticalAlignment="Center" />
-                <TextBlock Name="srcName" FontSize="14" Margin="0,6,0,0" FontFamily="Arial" VerticalAlignment="Center" />
+                <TextBlock Name="srcName" FontSize="14" Margin="0,6,0,0" FontFamily="Arial" VerticalAlignment="Center" Text="{Binding VM_SrcDirectory}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock Text="Log Name:  " FontFamily="Segoe UI Black" FontSize="20" Margin="10,0,0,0" VerticalAlignment="Center" />
-                <TextBlock Name="logName" FontSize="14" Margin="0,6,0,0" FontFamily="Arial" VerticalAlignment="Center" />
+                <TextBlock Name="logName" FontSize="14" Margin="0,6,0,0" FontFamily="Arial" VerticalAlignment="Center"  Text="{Binding VM_LogName}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock Text="Thumbnail Size:  " FontFamily="Segoe UI Black" FontSize="20" Margin="10,0,0,0" VerticalAlignment="Center" />
-                <TextBlock Name="thumbnailSize" FontSize="14" Margin="0,6,0,0" FontFamily="Arial" VerticalAlignment="Center" />
+                <TextBlock Name="thumbnailSize" FontSize="14" Margin="0,6,0,0" FontFamily="Arial" VerticalAlignment="Center" Text="{Binding VM_ThumbnailSize}"/>
             </StackPanel>
             <Button Name="RemoveDirClick" Content="Remove" Click="btnRemoveDirClick" FontSize="17" Margin="10,5,10,0" IsEnabled="False" />
             <ListBox Name="handlerList" Height="85"  Margin="10,5,10,10" VerticalAlignment="Center" Background="HoneyDew" DisplayMemberPath="Path" SelectionChanged="handlerList_SelectionChanged" />

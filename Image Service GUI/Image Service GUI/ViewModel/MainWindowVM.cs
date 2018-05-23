@@ -13,16 +13,17 @@ namespace Image_Service_GUI.ViewModel
         /// <summary>
         /// If connected to ImageService return white (background) otherwise return grey
         /// </summary>
+        private Brush backgroundColor;
         public Brush VM_BackgroundColor
         {
-            get
-            {
-                return new SolidColorBrush(Colors.Yellow);
-
-            }
+            get { return backgroundColor; }
         }
-
-
+        public MainWindowVM()
+        {
+            /// if () { }         /// If connected to ImageService return white (background) otherwise return grey
+            /// else {
+            this.backgroundColor = new SolidColorBrush(Colors.White);
+        }
 
     }
 }

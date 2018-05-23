@@ -12,10 +12,37 @@ namespace Image_Service_GUI.ViewModel
         {
             get
             {
-                return "YO HO MA!";
+                return "outpud dir";
 
             }
         }
+        public string VM_SrcDirectory
+        {
+            get
+            {
+                return "src dir";
+
+            }
+        }
+        public string VM_LogName
+        {
+            get
+            {
+                return "log name";
+
+            }
+        }
+        public string VM_ThumbnailSize
+        {
+            get
+            {
+                return "Thumbnail Size";
+
+            }
+        }
+        
+
+
 
     }
 }
