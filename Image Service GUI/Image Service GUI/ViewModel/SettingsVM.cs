@@ -8,39 +8,57 @@ namespace Image_Service_GUI.ViewModel
 {
     class SettingsVM
     {
+        private string outputDic;
+        private string srcName;
+        private string logName;
+        private string thumbnailSize;
+
         public string VM_OutputDirectory
         {
             get
             {
-                return "outpud dir";
+                return outputDic;
 
             }
+            set
+            {
+                outputDic = value;
+            }
         }
-        public string VM_SrcDirectory
+        public string VM_SrcName
         {
             get
             {
-                return "src dir";
+                return srcName;
 
             }
+            set { srcName = value; }
         }
         public string VM_LogName
         {
             get
             {
-                return "log name";
+                return logName;
 
-            }
+            } set { logName = value; }
         }
         public string VM_ThumbnailSize
         {
             get
             {
-                return "Thumbnail Size";
+                return thumbnailSize;
 
-            }
+            } set { thumbnailSize = value; }
         }
         
+        public SettingsVM()
+        {
+            this.outputDic = "def";
+            this.srcName = "def";
+            this.logName = "def";
+            this.thumbnailSize = "def";
+        }
+
 
 
 

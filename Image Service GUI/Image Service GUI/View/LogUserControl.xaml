@@ -13,16 +13,18 @@
             <local2:MessageTypeToBackgroundConverter x:Key="MessageTypeToBackgroundConverter"/>
         </DockPanel.Resources>
         <Label Content="Logs" FontSize="20" HorizontalAlignment="Center" Foreground="Blue" DockPanel.Dock="Top"/>
-        <DataGrid ItemsSource="{Binding LogList}" AutoGenerateColumns="False" Background="LightGoldenrodYellow"  ScrollViewer.CanContentScroll="True" Width="Auto" Height="Auto" Margin="10,0,10,20" SelectionChanged="DataGrid_SelectionChanged">
+        <DataGrid ItemsSource="{Binding LogList}" AutoGenerateColumns="False" Background="LightCyan"  ScrollViewer.CanContentScroll="True" Width="Auto" Height="Auto" Margin="10,0,10,20" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Type" Width="Auto" IsReadOnly="True" Binding="{Binding MsgType}" >
+                <DataGridTextColumn Header="Type" Width="60" IsReadOnly="True" Binding="{Binding Type}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
-                            <Setter Property="Background" Value="{Binding Path=MsgType, Converter={StaticResource MessageTypeToBackgroundConverter}}"></Setter>
+                            <Setter Property="Background" Value="{Binding Path=Type, Converter={StaticResource MessageTypeToBackgroundConverter}}"></Setter>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Message" Binding="{Binding Msg}" />
+                <DataGridTextColumn Header="Message" Width="*" Binding="{Binding Message}" >
+                    
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>

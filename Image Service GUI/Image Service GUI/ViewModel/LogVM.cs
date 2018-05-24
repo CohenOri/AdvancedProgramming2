@@ -9,41 +9,28 @@ using Image_Service_GUI.ViewModel;
 
 using ImageService.Model;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Image_Service_GUI.ViewModel
 {
-    class LogVM
+    class LogVM : INotifyPropertyChanged
     {
-
-        //private List<LogRecord> logList;
-        private string msgType;
-        private string msg;
         private ObservableCollection<LogRecord> logList;
-        //private MessageTypeToBackgroundConverter converter = new MessageTypeToBackgroundConverter();
-
-        public string Msg
-        {
-            // get { return this.logList[0].Message; }
-            get { return "MEssage"; }
-        }
-        public string MsgType
-        {
-            //get { return this.logList[0].Type.ToString(); }
-            get { return "TyPO"; }
-        }
-
         public ObservableCollection<LogRecord> LogList
         {
             get { return this.logList; } // return this.logModel.logs;
         }
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
         public LogVM()
         {
             this.logList = new ObservableCollection<LogRecord>();
+
+            // temp just to see it works
             this.logList.Add(new LogRecord(MessageTypeEnum.FAIL, "test"));
             this.logList.Add(new LogRecord(MessageTypeEnum.INFO, "s"));
-
+            this.logList.Add(new LogRecord(MessageTypeEnum.WARNING, "WOW this is so dangerous"));
         }
 
 

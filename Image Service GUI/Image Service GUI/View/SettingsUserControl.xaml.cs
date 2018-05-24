@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,33 +21,32 @@ namespace Image_Service_GUI.View
     /// <summary>
     /// Interaction logic for SettingsUserControl.xaml
     /// </summary>
-    public partial class SettingsUserControl : UserControl
+    public partial class SettingsUserControl : UserControl, INotifyPropertyChanged
     {
         // holds all the current handled directoreis - directories under tracking
-        private ObservableCollection<HandlerDirectories> handlerDirs = new ObservableCollection<HandlerDirectories>();
-
-
-        /*public string VM_OutputDirectory
+        private ObservableCollection<HandlerDirectories> handlerDirs;
+        public ObservableCollection<HandlerDirectories> HandlerDirs
         {
-            get
-            {
-                return "YO! MA!";
+            get { return this.handlerDirs; }
+        }
 
-            }
-        }*/
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
 
         public SettingsUserControl()
         {
             InitializeComponent();
-
             this.DataContext = new SettingsVM();
-
-            InitSettingWindows();
-            handlerDirs.Add(new HandlerDirectories() { Path = "John Doe" });
-            handlerDirs.Add(new HandlerDirectories() { Path = "Jane Doe" });
+            handlerDirs = new ObservableCollection<HandlerDirectories>();
             handlerList.ItemsSource = handlerDirs;
 
+            // temp add items manualy, later should be added using HandlerDirs.add(SOMETHING);
+            handlerDirs.Add(new HandlerDirectories() { Path = "John Doe" }); // temp
+            handlerDirs.Add(new HandlerDirectories() { Path = "Jane Doe" }); // temp
         }
 
         private void btnRemoveDirClick(object sender, RoutedEventArgs e)
@@ -55,23 +55,16 @@ namespace Image_Service_GUI.View
             if (handlerList.SelectedItem != null)
             {
                 handlerDirs.Remove(handlerList.SelectedItem as HandlerDirectories);
+                this.NotifyPropertyChanged("HandlerDirs"); // notify all the subscirbers about the removal
                 this.RemoveDirClick.IsEnabled = false;
             }
         }
 
         private void handlerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Console.WriteLine(this.handlerDirs.Count()); prints how much more dirs there is
+            //Console.WriteLine(this.handlerDirs.Count()); //prints how much more dirs there is
             this.RemoveDirClick.IsEnabled = true;
-        }
-
-        private void InitSettingWindows()
-        {
-            // READ FROM FILE
-            //this.outDir.Text = "sss";
-            //this.srcName.Text = "d";
-            //this.logName.Text = "a";
-            //this.thumbnailSize.Text = "B";
+            //Console.WriteLine(this.handlerDirs[0].Path);
         }
 
 

@@ -26,15 +26,5 @@ namespace Image_Service_GUI.View
             InitializeComponent();
             this.DataContext = new LogVM();
         }
-
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

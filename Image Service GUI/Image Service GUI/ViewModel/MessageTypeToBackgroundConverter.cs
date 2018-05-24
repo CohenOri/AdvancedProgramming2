@@ -24,9 +24,9 @@ namespace Image_Service_GUI.ViewModel
                 case MessageTypeEnum.WARNING:
                     return new SolidColorBrush(Colors.Yellow);
                 case MessageTypeEnum.FAIL:
-                    return new SolidColorBrush(Colors.Red);
+                    return new SolidColorBrush(Colors.LightCoral);
                 case MessageTypeEnum.INFO:
-                    return new SolidColorBrush(Colors.Green);
+                    return new SolidColorBrush(Colors.LightSeaGreen);
                 default:
                     return new SolidColorBrush(Colors.White);
             }
