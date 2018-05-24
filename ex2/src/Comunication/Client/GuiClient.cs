@@ -30,6 +30,7 @@ namespace Comunication.Client
         }
         public void Connect()
         {
+
             basicClient = new BasicClient();
             basicClient.Ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             basicClient.Client =  new TcpClient();

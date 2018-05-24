@@ -1,5 +1,6 @@
 ﻿using Comunication.Client;
 using Comunication.Event;
+using Infrastructure.Enums;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

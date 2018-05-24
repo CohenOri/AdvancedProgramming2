@@ -1,5 +1,7 @@
 ﻿using Comunication.Client;
 using Comunication.Event;
+using Infrastructure.Enums;
+using Logging.Modal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

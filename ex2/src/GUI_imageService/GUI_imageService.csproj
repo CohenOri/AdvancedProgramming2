@@ -57,11 +57,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\HandlerDirectories.cs" />
-    <Compile Include="ViewModel\LogVM.cs" />
-    <Compile Include="ViewModel\MainWindowVM.cs" />
-    <Compile Include="ViewModel\MessageTypeToBackgroundConverter.cs" />
-    <Compile Include="ViewModel\SettingsVM.cs" />
+    <Compile Include="ViewModal\HandlerDirectories.cs" />
+    <Compile Include="ViewModal\LogVM.cs" />
+    <Compile Include="ViewModal\MainWindowVM.cs" />
+    <Compile Include="ViewModal\MessageTypeToBackgroundConverter.cs" />
+    <Compile Include="ViewModal\SettingsVM.cs" />
     <Compile Include="View\LogUserControl.xaml.cs">
       <DependentUpon>LogUserControl.xaml</DependentUpon>
     </Compile>
@@ -89,9 +89,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ISettingsModel.cs" />
-    <Compile Include="Model\LogModal.cs" />
-    <Compile Include="Model\SettingsModel.cs" />
+    <Compile Include="Modal\ISettingsModel.cs" />
+    <Compile Include="Modal\LogModal.cs" />
+    <Compile Include="Modal\SettingsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -125,6 +125,14 @@
     <ProjectReference Include="..\Comunication\Comunication.csproj">
       <Project>{84698ef8-4422-42a8-88d4-2c5fe9fc4e24}</Project>
       <Name>Comunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{e7d24e05-c534-4f6f-a226-33412271c4b9}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{710786a8-b70e-46b7-aec2-ae970d21cddc}</Project>
+      <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,6 +6,7 @@ using System.Windows.Media;
 
 
 using Comunication.Event;
+using Logging.Modal;
 
 namespace Image_Service_GUI.ViewModel
 {

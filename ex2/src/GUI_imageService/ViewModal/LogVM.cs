@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Comunication.Event;
 using GUI_imageService.Modal;
+using Logging.Modal;
 
 namespace Image_Service_GUI.ViewModel
 {
