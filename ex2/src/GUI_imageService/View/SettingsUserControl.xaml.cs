@@ -24,11 +24,11 @@ namespace Image_Service_GUI.View
     public partial class SettingsUserControl : UserControl, INotifyPropertyChanged
     {
         // holds all the current handled directoreis - directories under tracking
-        private ObservableCollection<HandlerDirectories> handlerDirs;
-        public ObservableCollection<HandlerDirectories> HandlerDirs
-        {
-            get { return this.handlerDirs; }
-        }
+        //private ObservableCollection<HandlerDirectories> handlerDirs;
+        //public ObservableCollection<HandlerDirectories> HandlerDirs
+        //{
+        //    get { return this.handlerDirs; }
+        //}
     
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
@@ -37,16 +37,19 @@ namespace Image_Service_GUI.View
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
+        private SettingsVM svm;
         public SettingsUserControl()
         {
             InitializeComponent();
-            this.DataContext = new SettingsVM();
-            handlerDirs = new ObservableCollection<HandlerDirectories>();
-            handlerList.ItemsSource = handlerDirs;
+            this.svm = new SettingsVM();
+            PropertyChanged += this.svm.NotifyServerRemove;
+            this.DataContext = this.svm;
+            //handlerDirs = ;
+            handlerList.ItemsSource = this.svm.HandlerDirsList;
 
             // temp add items manualy, later should be added using HandlerDirs.add(SOMETHING);
-            handlerDirs.Add(new HandlerDirectories() { Path = "John Doe" }); // temp
-            handlerDirs.Add(new HandlerDirectories() { Path = "Jane Doe" }); // temp
+            //handlerDirs.Add(new HandlerDirectories() { Path = "John Doe" }); // temp
+            //handlerDirs.Add(new HandlerDirectories() { Path = "Jane Doe" }); // temp
         }
 
         private void btnRemoveDirClick(object sender, RoutedEventArgs e)
@@ -54,8 +57,8 @@ namespace Image_Service_GUI.View
 
             if (handlerList.SelectedItem != null)
             {
-                handlerDirs.Remove(handlerList.SelectedItem as HandlerDirectories);
-                this.NotifyPropertyChanged("HandlerDirs"); // notify all the subscirbers about the removal
+               // handlerDirs.Remove(handlerList.SelectedItem as HandlerDirectories);
+                this.NotifyPropertyChanged((handlerList.SelectedItem as HandlerDirectories).Path); // notify all the subscirbers about the removal
                 this.RemoveDirClick.IsEnabled = false;
             }
         }

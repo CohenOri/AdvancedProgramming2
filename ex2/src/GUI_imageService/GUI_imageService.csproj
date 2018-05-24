@@ -57,23 +57,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="ViewModel\HandlerDirectories.cs" />
+    <Compile Include="ViewModel\LogVM.cs" />
+    <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="ViewModel\MessageTypeToBackgroundConverter.cs" />
+    <Compile Include="ViewModel\SettingsVM.cs" />
+    <Compile Include="View\LogUserControl.xaml.cs">
+      <DependentUpon>LogUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsUserControl.xaml.cs">
+      <DependentUpon>SettingsUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="View\LogUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modal\ISettingsModel.cs" />
-    <Compile Include="Modal\LogModal.cs" />
-    <Compile Include="Modal\SettingsModel.cs" />
+    <Compile Include="Model\ISettingsModel.cs" />
+    <Compile Include="Model\LogModal.cs" />
+    <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -102,8 +120,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Communication\" />
-    <Folder Include="ViewModal\" />
-    <Folder Include="View\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Comunication\Comunication.csproj">
+      <Project>{84698ef8-4422-42a8-88d4-2c5fe9fc4e24}</Project>
+      <Name>Comunication</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

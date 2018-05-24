@@ -20,7 +20,7 @@ namespace ImageService.Commands
         public string Execute(string[] args, out bool result)
         {
             result = true;
-            return AppCongigSettings.Instance.ToJSON();
+            return "Settings:" + AppCongigSettings.Instance.ToJSON();
         }
     }
 }

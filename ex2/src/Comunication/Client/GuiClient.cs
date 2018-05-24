@@ -9,15 +9,31 @@ using System.Threading.Tasks;
 
 namespace Comunication.Client
 {
-    class GuiClient
+   public class GuiClient
     {
         private Boolean listenToServer;
+        private BasicClient basicClient;
         public event EventHandler<ServerDataReciecedEventArgs> ServerMassages;
-        public GuiClient()
+
+        private static GuiClient instance;
+        private GuiClient() { }
+        public static GuiClient Instance
         {
-            BasicClient.Instance.Ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-            BasicClient.Instance.Client =  new TcpClient();
-            BasicClient.Instance.ConnectToServer();
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GuiClient();
+                }
+                return instance;
+            }
+        }
+        public void Connect()
+        {
+            basicClient = new BasicClient();
+            basicClient.Ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
+            basicClient.Client =  new TcpClient();
+            basicClient.ConnectToServer();
             listenToServer = true;
         }
 
@@ -27,7 +43,7 @@ namespace Comunication.Client
             {
                 while(this.listenToServer)
                 {
-                    string data = BasicClient.Instance.ReadDataFromServer();
+                    string data = basicClient.ReadDataFromServer();
                     ServerMassages(this,ServerDataReciecedEventArgs.FromJSON(data));
                 }
 
@@ -36,12 +52,12 @@ namespace Comunication.Client
 
         public void Disconnect()
         {
-            BasicClient.Instance.CloseClient();
+            basicClient.CloseClient();
         }
 
         public void SendMessage(string message)
         {
-            BasicClient.Instance.SendDataToServer(message);
+            basicClient.SendDataToServer(message);
         }
 
     }

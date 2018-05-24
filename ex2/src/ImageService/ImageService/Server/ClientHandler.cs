@@ -33,8 +33,8 @@ namespace Comunication.Server
                         commandLine = reader.ReadLine();
                         Console.WriteLine("Got command: {0}", commandLine);
                         bool check;
-
-                        string result = m_controller.ExecuteCommand(Int32.Parse(commandLine), null, out check);
+                        string[] command = commandLine.Split(':');
+                        string result = m_controller.ExecuteCommand(Int32.Parse(command[0]), command, out check);
                         //send to client all the logs.
                         writer.Write(result);
                     }

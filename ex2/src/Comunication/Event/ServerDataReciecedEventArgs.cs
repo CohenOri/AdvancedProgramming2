@@ -15,7 +15,7 @@ namespace Comunication.Event
         /// C'tor for ServerDataReciecedEventArgs.
         /// </summary>
         /// <param name="type"> string of name</param>
-        /// <param name="info">data from server that relevent</param>
+        /// <param name="info">data from basicClient that relevent</param>
         public ServerDataReciecedEventArgs(string type, string info)
         {
             this.DataType = type;

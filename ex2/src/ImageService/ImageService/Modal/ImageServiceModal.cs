@@ -1,4 +1,4 @@
-﻿using ImageService.Infrastructure;
+﻿using Comunication.Event;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

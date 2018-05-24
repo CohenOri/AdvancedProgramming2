@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Image_Service_GUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GUI_imageService
+namespace Image_Service_GUI.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LogUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LogUserControl : UserControl
     {
-        public MainWindow()
+        public LogUserControl()
         {
             InitializeComponent();
+            this.DataContext = new LogVM();
         }
     }
 }

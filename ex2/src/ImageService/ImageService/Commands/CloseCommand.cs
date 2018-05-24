@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Commands;
 using ImageService.Controller.Handlers;
-using ImageService.Infrastructure.Enums;
+//using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using ImageService.Modal;
 using ImageService.Server;
@@ -35,9 +35,9 @@ namespace ImageService.Commands
         {
             // The String Will Return the New Path if result = true, and will return the error message otherwise
             result = true;
-            string status = HanddlersController.Instance.DeleteHandller(args[0]);
+            string status = HanddlersController.Instance.DeleteHandller(args[1]);
             m_service.Log("close handler:" + args, Logging.Modal.MessageTypeEnum.INFO);
-            AppCongigSettings.Instance.Handlers = AppCongigSettings.Instance.Handlers.Replace(args[0] + ";", "");
+            AppCongigSettings.Instance.Handlers = AppCongigSettings.Instance.Handlers.Replace(args[1] + ";", "");
             return status;
 
         }

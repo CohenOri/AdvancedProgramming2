@@ -13,7 +13,6 @@ namespace ImageService.Commands
         private LogList log;
         public LogCommand(ILoggingService service)
         {
-           
             this.log = new LogList();
             service.MessageRecieved += log.AddNewLog;
         }

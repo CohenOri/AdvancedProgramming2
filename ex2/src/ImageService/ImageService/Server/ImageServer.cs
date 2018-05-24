@@ -1,7 +1,7 @@
 ﻿using ImageService.Controller;
 using ImageService.Controller.Handlers;
 using ImageService.Server;
-using ImageService.Infrastructure.Enums;
+//using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using ImageService.Modal;
 using System;
@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Commands;
 using ImageService.Logging.Modal;
+using Comunication.Server;
 
 namespace ImageService.Server
 {
@@ -20,7 +21,7 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
-        private Communication m_tcpServer;
+        private ComunicationServer m_tcpServer;
         #endregion
 
         #region Properties
@@ -50,7 +51,7 @@ namespace ImageService.Server
                 this.CommandRecieved += handler.OnCommandRecieved;
                 HanddlersController.Instance.handdlers.Add(handler);
             }
-            this.m_tcpServer = new Communication(8000, new ClientHandler(this.m_controller));
+            this.m_tcpServer = new ComunicationServer(8000, new ClientHandler(this.m_controller));
             this.m_logging.MessageRecieved += this.m_tcpServer.SendNewLog;
             this.m_tcpServer.Start();
         }

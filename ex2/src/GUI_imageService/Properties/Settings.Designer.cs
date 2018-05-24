@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GUI_imageService.Properties
+namespace Image_Service_GUI.Properties
 {
 
 
@@ -26,8 +26,5 @@ namespace GUI_imageService.Properties
                 return defaultInstance;
             }
         }
-
-        public string ServerIP { get; internal set; }
-        public int ServerPort { get; internal set; }
     }
 }

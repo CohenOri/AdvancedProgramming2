@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using ImageService.Controller;
 using ImageService.Controller.Handlers;
 using ImageService.Server;
-using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using ImageService.Modal;
 using System.Configuration;
 using ImageService.Logging.Modal;
 using System.IO;
+using Comunication.Server;
 
-namespace Comunication.Server
+namespace ImageService.Server
 {
     class ComunicationServer
     {

@@ -11,25 +11,15 @@ namespace Comunication.Client
 {
     class BasicClient
     {
-        private static BasicClient instance;
-        private BasicClient() { }
-        public static BasicClient Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new BasicClient();
-                }
-                return instance;
-            }
-        }
+        public BasicClient()
+        { }
+
        public IPEndPoint Ep { get; set; }
        public TcpClient Client { get; set; }
        private Boolean run { get; set; }
 
         /// <summary>
-        /// connect client to server
+        /// connect client to basicClient
         /// </summary>
         public void ConnectToServer()
         {
@@ -37,7 +27,7 @@ namespace Comunication.Client
             this.run = true;
         }
         /// <summary>
-        /// send string message to server
+        /// send string message to basicClient
         /// </summary>
         /// <param name="message"></param>
         public void SendDataToServer(string message)
@@ -45,12 +35,12 @@ namespace Comunication.Client
             using (NetworkStream stream = this.Client.GetStream())
             using (BinaryWriter writer = new BinaryWriter(stream))
             {
-                // Send data to server
+                // Send data to basicClient
                 writer.Write(message);
             }
         }
         /// <summary>
-        /// read message-string from server
+        /// read message-string from basicClient
         /// </summary>
         /// <returns></returns>
         public string ReadDataFromServer()
@@ -59,13 +49,13 @@ namespace Comunication.Client
             using (NetworkStream stream = this.Client.GetStream())
             using (BinaryReader reader = new BinaryReader(stream))
             {
-                        // Get data from server
+                        // Get data from basicClient
                         data = reader.ReadString();
             }
             return data;
         }
         /// <summary>
-        /// close the connection to server;
+        /// close the connection to basicClient;
         /// </summary>
          public void CloseClient()
         {
