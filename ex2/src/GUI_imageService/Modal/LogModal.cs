@@ -21,8 +21,9 @@ namespace GUI_imageService.Modal
         public LogModal()
         {
             // this._logs = new List<LogRecord>();
-            GuiClient.Instance.Connect();
-            GuiClient.Instance.ServerMassages += ReadFromServer;
+            GuiClient c = GuiClient.Instance;
+            c.Connect();
+            c.ServerMassages += ReadFromServer;
 
         }
         public void GetLogList()

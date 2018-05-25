@@ -15,8 +15,7 @@ namespace Comunication.Client
         private BasicClient basicClient;
         public event EventHandler<ServerDataReciecedEventArgs> ServerMassages;
 
-        private static GuiClient instance;
-        private GuiClient() { }
+        private static GuiClient instance = null;
         public static GuiClient Instance
         {
             get
@@ -28,10 +27,16 @@ namespace Comunication.Client
                 return instance;
             }
         }
+
+        private GuiClient()
+        {
+            basicClient = new BasicClient(); // ori added
+        }
+
         public void Connect()
         {
 
-            basicClient = new BasicClient();
+            //basicClient = new BasicClient(); ori moved
             basicClient.Ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             basicClient.Client =  new TcpClient();
             basicClient.ConnectToServer();

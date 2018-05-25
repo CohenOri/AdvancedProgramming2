@@ -12,9 +12,11 @@ namespace Comunication.Client
     class BasicClient
     {
         public BasicClient()
-        { }
+        {
+            //this.Client = new TcpClient(); // ori added
+        }
 
-       public IPEndPoint Ep { get; set; }
+        public IPEndPoint Ep { get; set; }
        public TcpClient Client { get; set; }
        private Boolean run { get; set; }
 
