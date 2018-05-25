@@ -28,10 +28,10 @@ namespace Image_Service_GUI.ViewModel
             this.NotifyDirRemove += this.settings.RemoveHandler;
             this.settings.ReadSettingsFromServer += SetSettingsData;//listen to server to get settings or handled to close
             this.settings.GetSettings();
-          //  this.outputDic = "def";
-           /// this.srcName = "def";
-          //  this.logName = "def";
-          //  this.thumbnailSize = "def";
+            this.outputDic = "def";
+            this.srcName = "def";
+            this.logName = "def";
+           this.thumbnailSize = "def";
 
         }
 

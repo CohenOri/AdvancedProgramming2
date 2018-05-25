@@ -15,9 +15,10 @@ namespace Comunication.Client
         {
             //this.Client = new TcpClient(); // ori added
         }
-
-        public IPEndPoint Ep { get; set; }
-       public TcpClient Client { get; set; }
+        private IPEndPoint ep;
+        public IPEndPoint Ep { get { return ep; } set { ep = value; } }
+        private TcpClient client;
+       public TcpClient Client { get { return this.client; } set { client = value; } }
        private Boolean run { get; set; }
 
         /// <summary>

@@ -28,7 +28,10 @@ namespace GUI_imageService.Modal
         }
         public void GetLogList()
         {
-            GuiClient.Instance.SendMessage("" + CommandEnum.LogCommand);
+            if (GuiClient.Instance.ConnectedToServer)
+            {
+                GuiClient.Instance.SendMessage("" + CommandEnum.LogCommand);
+            }
         }
 
         

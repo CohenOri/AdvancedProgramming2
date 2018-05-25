@@ -28,7 +28,10 @@ namespace GUI_imageService.Modal
 
         public void GetSettings()
         {
-            GuiClient.Instance.SendMessage("" + CommandEnum.GetConfigCommand);
+            if (GuiClient.Instance.ConnectedToServer)
+            {
+                GuiClient.Instance.SendMessage("" + CommandEnum.GetConfigCommand);
+            }
         }
 
         public void ReadFromServer(object sender, ServerDataReciecedEventArgs e)

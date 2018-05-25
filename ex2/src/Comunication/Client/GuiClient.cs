@@ -14,6 +14,7 @@ namespace Comunication.Client
         private Boolean listenToServer;
         private BasicClient basicClient;
         public event EventHandler<ServerDataReciecedEventArgs> ServerMassages;
+        public Boolean ConnectedToServer { get { return this.listenToServer; } }
 
         private static GuiClient instance = null;
         public static GuiClient Instance
@@ -39,8 +40,16 @@ namespace Comunication.Client
             //basicClient = new BasicClient(); ori moved
             basicClient.Ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             basicClient.Client =  new TcpClient();
-            basicClient.ConnectToServer();
-            listenToServer = true;
+            try
+            {
+                basicClient.ConnectToServer();
+                listenToServer = true;
+            } catch (Exception e)
+            {
+                // couldn't connet to server what a shame =(
+                listenToServer = false;
+            }
+
         }
 
         public void StartListenToServer()

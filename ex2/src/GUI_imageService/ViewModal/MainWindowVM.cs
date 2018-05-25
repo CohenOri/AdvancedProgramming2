@@ -24,16 +24,25 @@ namespace Image_Service_GUI.ViewModel
         {
             /// if () { }         /// If connected to ImageService return white (background) otherwise return grey
             /// else {
-            this.backgroundColor = new SolidColorBrush(Colors.White);
-            GuiClient c = GuiClient.Instance;
+            /*GuiClient c = GuiClient.Instance;
             try
             {
                 c.Connect();
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Data);
             }
-        }
 
+            catch (Exception e)
+            {
+            }*/
+
+            if (GuiClient.Instance.ConnectedToServer)
+            {
+                this.backgroundColor = new SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                this.backgroundColor = new SolidColorBrush(Colors.Gray);
+            }
+
+        }
     }
 }
