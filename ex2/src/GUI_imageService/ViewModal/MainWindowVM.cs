@@ -44,5 +44,11 @@ namespace Image_Service_GUI.ViewModel
             }
 
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            GuiClient.Instance.SendMessage("Close Client");
+        }
+
     }
 }

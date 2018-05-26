@@ -118,9 +118,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Communication\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Comunication\Comunication.csproj">
       <Project>{84698ef8-4422-42a8-88d4-2c5fe9fc4e24}</Project>
