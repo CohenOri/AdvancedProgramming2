@@ -1,0 +1,202 @@
+commit 3b741f01bb5bbb56cc1997d6a1d8c04a87b143c5
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Sun May 27 20:44:53 2018 +0300
+
+    Final work-without comments.
+
+commit 794b8811d3d3335c9eb17726013a091d09a4ba8b
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Sun May 27 17:40:10 2018 +0300
+
+    working server-client!
+
+commit 9768a89671c8be48292094bb08d385d018a48e7b
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Sat May 26 21:30:37 2018 +0300
+
+    Added GUI onClose treatment
+
+commit dfa2a68511ee41628d92072e95478d046379f069
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Fri May 25 14:47:42 2018 +0300
+
+    GUI works, now server
+
+commit 7c7b6c802480a4b6ebcfbec6432dee0d7355ebcc
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Fri May 25 14:11:28 2018 +0300
+
+    Starting to fix some bugs
+
+commit 506a8ea2adf02b2c86dd02629cbb61aed918d04d
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Fri May 25 01:26:55 2018 +0300
+
+    "First Take"-project is done. no errors for now. need to check in real-time
+
+commit 784c80c3e6ee5bd50de3fe268a60cac8d1b27f8a
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Thu May 24 22:01:11 2018 +0300
+
+    Starting integration between GUI and model
+
+commit f499d618d0a99456707fd1a59a08495c5ab68f37
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Thu May 24 13:54:21 2018 +0300
+
+    model+serveice changes.
+
+commit 9271096c2dce38dd256494502d9e00ed8fc6250d
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Thu May 24 13:16:30 2018 +0300
+
+    GUI works, now integration
+
+commit 8664d36be4f19ccc0bd3ed930350a9ffd29be282
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Wed May 23 22:54:13 2018 +0300
+
+    Some updates to GUI
+
+commit 3e95825e534a8e8bc9baf00f9e715f91819895cd
+Merge: 18c224d d902d37
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Thu May 10 15:14:21 2018 +0300
+
+    Merge branch 'master' of https://github.com/CohenOri/AdvancedProgramming2
+
+commit 18c224d1a8b700f8dcbaccfb98f0f590677b6ed0
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Thu May 10 15:12:20 2018 +0300
+
+    splited into View and ViewModel directories
+
+commit d902d37fa24d572751f8c05c8593adeb2b718e06
+Merge: 67edff3 cdfc876
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Thu May 10 12:20:18 2018 +0300
+
+    Merge branch 'master' of https://github.com/CohenOri/AdvancedProgramming2
+
+commit 67edff3381f5ecc99cf8061c67e6cd808d85937e
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Thu May 10 12:17:48 2018 +0300
+
+    Server-modal connection-not finished. i changed folders and added some new for client side.
+
+commit cdfc87626d61d4b93eb606fc4897004093177b5a
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Mon May 7 11:03:38 2018 +0300
+
+    start the work on GUI
+
+commit a7e4fe8f3af2d90c24450728803161d1428b4e20
+Author: DESKTOP-JEAVVMC\Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Sun Apr 15 14:16:22 2018 +0300
+
+    last zip
+
+commit 1315c60a18e38aaa3fe6b18a895abcec49dfbde4
+Author: DESKTOP-JEAVVMC\Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Sun Apr 15 13:39:40 2018 +0300
+
+    fixed bug-wait befor moving
+
+commit e3202b4895f8676836a7d417fcf5c4763d345bd4
+Author: DESKTOP-JEAVVMC\Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Sat Apr 14 22:45:09 2018 +0300
+
+    add hidden folder
+
+commit c5bf67fa8579e1a7a675b49fd205c809ed1ca827
+Author: DESKTOP-JEAVVMC\Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Sat Apr 14 02:45:49 2018 +0300
+
+    Fixed bugs-no more errors in open files or create unused folders. and re-write the logger's event messages.
+
+commit 0fad3eee567dd4075f7ba93400f0ef95543b0091
+Author: DESKTOP-JEAVVMC\Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Fri Apr 13 00:50:26 2018 +0300
+
+    1053 bug fixed. the service works on my computer. still we need to maje few changes in massages to logger and the folders creation.
+
+commit 67499ffc05a35d2047472c7e9ce9f325bf293c50
+Author: DESKTOP-JEAVVMC\Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Fri Apr 13 00:23:19 2018 +0300
+
+    Created a Server and changed Service to work with it.
+    addad app.config ->> note: its my paths so change it to yours.
+
+commit 8ec069e6b2b154593bd0f343b344c0e81e207b81
+Author: DESKTOP-JEAVVMC\Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Wed Apr 11 22:26:04 2018 +0300
+
+    Changed project to service type
+
+commit 0c78fe4f3ad911b161cefa08acea50ab36748f35
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Wed Apr 11 18:52:15 2018 +0300
+
+    Implemeted Commands, Controller & Handler, Minor update
+
+commit d6922d3163920b66797df46df104636d5110bdcb
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Wed Apr 11 16:16:22 2018 +0300
+
+    Implemeted Commands, Controller & Handler
+
+commit ca5dab1cf1be16054d4dc6d5d2f4ad2eed892195
+Author: Ori <Ori@ORI-MACBOOK-WIN>
+Date:   Wed Apr 11 00:44:18 2018 +0300
+
+    Test readme file
+    
+    No serious change, just updated readme file
+
+commit 79a6186fb9b0740c59b2aadb30583a9f4bd2398c
+Author: Ori <Ori@ORI-MACBOOK-WIN>
+Date:   Tue Apr 10 22:24:13 2018 +0300
+
+    Created Image and Logging Modal
+
+commit e6adb75902f129cab7ecad67d8bc212fd837f180
+Author: Ori <Ori@ORI-MACBOOK-WIN>
+Date:   Tue Apr 10 15:31:50 2018 +0300
+
+    Remove program.cs
+
+commit 67419e5d2a6bf88fed3f83e258b4f6623762b314
+Author: Ori <Ori@ORI-MACBOOK-WIN>
+Date:   Tue Apr 10 15:29:10 2018 +0300
+
+    Initialize ass1
+
+commit b01681f709832766c987ae6a098dc031b11baf42
+Author: Ori <Ori@ORI-MACBOOK-WIN>
+Date:   Tue Apr 10 15:09:41 2018 +0300
+
+    comment from git for windows (bash like)
+
+commit 253296d0a174f5379a726c5dd95e78b7cbeabd36
+Author: CohenOri <33662944+CohenOri@users.noreply.github.com>
+Date:   Tue Apr 10 15:07:23 2018 +0300
+
+    Create s
+
+commit 41869343b9201f4a05dadb58ee13abaa2e2bfa30
+Author: Ori <Ori@ORI-MACBOOK-WIN>
+Date:   Tue Apr 10 15:01:15 2018 +0300
+
+    comment from git for windows (bash like)
+
+commit 6467c313e10e8dde81800847eedcaba5039ed747
+Author: CohenOri <33662944+CohenOri@users.noreply.github.com>
+Date:   Tue Apr 10 14:56:24 2018 +0300
+
+    Update README.md
+
+commit 47d16a2429d2b2433c7a025876ef08129725e452
+Author: Ori <Ori@ORI-MACBOOK-WIN>
+Date:   Tue Apr 10 14:53:11 2018 +0300
+
+    Added readme file
