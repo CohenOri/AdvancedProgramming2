@@ -89,7 +89,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modal\ISettingsModel.cs" />
     <Compile Include="Modal\LogModal.cs" />
     <Compile Include="Modal\SettingsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

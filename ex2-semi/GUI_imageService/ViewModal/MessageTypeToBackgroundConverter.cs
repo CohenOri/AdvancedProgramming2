@@ -2,9 +2,6 @@
 using System.Windows.Data;
 using System.Globalization;
 using System.Windows.Media;
-
-
-
 using Comunication.Event;
 using Logging.Modal;
 
@@ -12,6 +9,14 @@ namespace Image_Service_GUI.ViewModel
 {
     class MessageTypeToBackgroundConverter : IValueConverter
     {
+        /// <summary>
+        /// Convert MessageTypeEnum to matching background color to show with.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (targetType != typeof(Brush))

@@ -10,8 +10,6 @@ namespace Image_Service_GUI.ViewModel
     public class HandlerDirectories : INotifyPropertyChanged
     {
         private string path;
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public string Path
         {
             get { return this.path; }
@@ -24,7 +22,8 @@ namespace Image_Service_GUI.ViewModel
                 }
             }
         }
-
+        public event PropertyChangedEventHandler PropertyChanged; // event to trigger when path changes
+        // method to trigger when folder path changed [not in use for now]
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)

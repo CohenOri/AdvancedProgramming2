@@ -15,18 +15,25 @@ namespace Image_Service_GUI.ViewModel
 {
     class SettingsVM
     {
+        /// <summary>
+        /// Members
+        /// </summary>
         private string outputDic;
         private string srcName;
         private string logName;
         private string thumbnailSize;
         private Boolean removeEnabled;
-
         private SettingsModel settings;
+        // holds all the current handled directoreis - directories under tracking
         private ObservableCollection<HandlerDirectories> handlerDirsList;
-        public ObservableCollection<HandlerDirectories> HandlerDirsList { get; set; }
+        // events to trigger when "AddToList/NotifyDirRemove" is needed. (outside class triggers them)
         public event EventHandler<ServerDataReciecedEventArgs> NotifyDirRemove;
         public event EventHandler<PropertyChangedEventArgs> AddToList;
 
+        /// <summary>
+        /// Properties
+        /// </summary>
+        public ObservableCollection<HandlerDirectories> HandlerDirsList { get; set; }
         public string VM_OutputDirectory
         {
             get
@@ -66,8 +73,6 @@ namespace Image_Service_GUI.ViewModel
             }
             set { thumbnailSize = value; }
         }
-
-
         public Boolean VM_RemoveEnabled
         {
             get
@@ -81,27 +86,25 @@ namespace Image_Service_GUI.ViewModel
         public SettingsVM()
         {
             this.settings = new SettingsModel();
-            //this.NotifyDirRemove += this.RemoveHandlers;
             this.HandlerDirsList = new ObservableCollection<HandlerDirectories>();
+            // in order to always sync HandlerDirsList (make sure bind works)
             BindingOperations.EnableCollectionSynchronization(HandlerDirsList, HandlerDirsList);
-            this.settings.ReadSettingsFromServer += SetSettingsData;//listen to server to get settings or handled to close
-            NotifyDirRemove+= this.settings.RemoveHandler;
-            AddToList += AddHandlerToList;
+            this.settings.ReadSettingsFromServer += SetSettingsData; //listen to server to get settings or handled to close
+            NotifyDirRemove += this.settings.RemoveHandler; // add delegates to do on NotifyDirRemove event
+            AddToList += AddHandlerToList; // add delegates to do on AddToList event
             this.settings.GetSettings();
-            System.Threading.Thread.Sleep(300);
-            // this.outputDic = "def";
-            //  this.srcName = "def";
-            //   this.logName = "def";
-            //  this.thumbnailSize = "def";
-
-            this.removeEnabled = false;
-
+            System.Threading.Thread.Sleep(300); // in order to give the GUI some time to bind the data
+            this.removeEnabled = false; // Disable Remove button unless some directory is chosen
         }
 
-        public void SetSettingsData(object obj, ServerDataReciecedEventArgs e )
+        /// <summary>
+        /// reads setting data from server, and sets them to the prop's
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
+        public void SetSettingsData(object obj, ServerDataReciecedEventArgs e)
         {
-
-            if (e.DataType.Equals("Settings"))
+            if (e.DataType.Equals("Settings")) // if reads "settings" as pre-command from server, we now need to read settings
             {
                 JObject settingsObj = JObject.Parse(e.Date);
                 string handlers = (string)settingsObj["Handler"];
@@ -115,19 +118,19 @@ namespace Image_Service_GUI.ViewModel
                 this.srcName = (string)settingsObj["sourceName"];
                 this.outputDic = (string)settingsObj["outPutDir"];
             }
+            // if not Log or Close cmd & not settings.. - Handlers cmd
             else if (e.DataType.Equals("Log") && e.Date.StartsWith("0:close handler:"))
             {
-                string starts = e.Date.Substring(16);
-                //  this.handlerDirsList.Remove(e.Date);
+                string starts = e.Date.Substring(16); // reads handlres...
                 HandlerDirectories dir = null;
                 foreach (HandlerDirectories dirr in this.HandlerDirsList)
                 {
-                    if(dirr.Path.Equals(starts))
+                    if (dirr.Path.Equals(starts))
                     {
                         dir = dirr;
                     }
                 }
-                if(dir != null)
+                if (dir != null)
                 {
                     this.HandlerDirsList.Remove(dir);
                     this.removeEnabled = false;
@@ -135,79 +138,37 @@ namespace Image_Service_GUI.ViewModel
             }
         }
 
-        /*
-        public string VM_OutputDirectory
-        {
-            get
-            {
-                return outputDic;
-
-            }
-            set
-            {
-                outputDic = value;
-            }
-        }
-        public string VM_SrcName
-        {
-            get
-            {
-                return srcName;
-
-            }
-            set { srcName = value; }
-        }
-        public string VM_LogName
-        {
-            get
-            {
-                return logName;
-
-            } set { logName = value; }
-        }
-        public string VM_ThumbnailSize
-        {
-            get
-            {
-                return thumbnailSize;
-
-            } set { thumbnailSize = value; }
-        }
-
-       
-        public Boolean VM_RemoveEnabled
-        {
-            get
-            {
-                return this.removeEnabled;
-
-            }
-        }
-        **/
-
+        /// <summary>
+        /// Notify Server about Removal of dir.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
         public void NotifyServerRemove(object obj, PropertyChangedEventArgs e)
         {
-            NotifyDirRemove(this,new ServerDataReciecedEventArgs("Close handler", e.PropertyName));
+            NotifyDirRemove(this, new ServerDataReciecedEventArgs("Close handler", e.PropertyName));
         }
 
+        /// <summary>
+        /// Add Handler directory to list
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="path">of dir to add to list</param>
         private void AddHandlerToList(object obj, PropertyChangedEventArgs path)
         {
             HandlerDirectories dir = new HandlerDirectories() { Path = path.PropertyName };
             this.HandlerDirsList.Add(dir);
         }
 
-
+        /// <summary>
+        /// Remove Handler directory from list
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="path">of dir to remove from list</param>
         private void RemoveHandler(object obj, PropertyChangedEventArgs path)
         {
             HandlerDirectories dir = new HandlerDirectories() { Path = path.PropertyName };
             this.HandlerDirsList.Remove(dir);
             Console.WriteLine("remove handelrsss: path:prop:" + path.PropertyName);
         }
-
-
-
-
-
-
     }
 }

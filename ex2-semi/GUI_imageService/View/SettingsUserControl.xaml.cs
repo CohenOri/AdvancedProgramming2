@@ -23,13 +23,6 @@ namespace Image_Service_GUI.View
     /// </summary>
     public partial class SettingsUserControl : UserControl, INotifyPropertyChanged
     {
-        // holds all the current handled directoreis - directories under tracking
-        //private ObservableCollection<HandlerDirectories> handlerDirs;
-        //public ObservableCollection<HandlerDirectories> HandlerDirs
-        //{
-        //    get { return this.handlerDirs; }
-        //}
-    
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
         {
@@ -41,36 +34,27 @@ namespace Image_Service_GUI.View
         public SettingsUserControl()
         {
             InitializeComponent();
+            // Create SettingsVM to bind data from. import dirs from it.
+            // and add method NotifyServerRemove to listen to each property (handler) change. 
             this.svm = new SettingsVM();
             PropertyChanged += this.svm.NotifyServerRemove;
             this.DataContext = this.svm;
-            //handlerDirs = ;
             handlerList.ItemsSource = this.svm.HandlerDirsList;
-            //this.RemoveDirClick.IsEnabled = false;
-
-            // temp add items manualy, later should be added using HandlerDirs.add(SOMETHING);
-            //handlerDirs.Add(new HandlerDirectories() { Path = "John Doe" }); // temp
-            //handlerDirs.Add(new HandlerDirectories() { Path = "Jane Doe" }); // temp
         }
 
         private void btnRemoveDirClick(object sender, RoutedEventArgs e)
         {
-
             if (handlerList.SelectedItem != null)
             {
-               // handlerDirs.Remove(handlerList.SelectedItem as HandlerDirectories);
                 this.NotifyPropertyChanged((handlerList.SelectedItem as HandlerDirectories).Path); // notify all the subscirbers about the removal
-                //this.RemoveDirClick.IsEnabled = false;
+                // sends the server the removal command.
             }
         }
 
         private void handlerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Console.WriteLine(this.handlerDirs.Count()); //prints how much more dirs there is
-           this.RemoveDirClick.IsEnabled = !(this.RemoveDirClick.IsEnabled);
-            //Console.WriteLine(this.handlerDirs[0].Path);
+            // revert the status of the Remove button (if it was disabled -> enable etc.)
+            this.RemoveDirClick.IsEnabled = !(this.RemoveDirClick.IsEnabled);
         }
-
-
     }
 }
