@@ -46,6 +46,7 @@ namespace Image_Service_GUI.View
             this.DataContext = this.svm;
             //handlerDirs = ;
             handlerList.ItemsSource = this.svm.HandlerDirsList;
+            //this.RemoveDirClick.IsEnabled = false;
 
             // temp add items manualy, later should be added using HandlerDirs.add(SOMETHING);
             //handlerDirs.Add(new HandlerDirectories() { Path = "John Doe" }); // temp
@@ -59,14 +60,14 @@ namespace Image_Service_GUI.View
             {
                // handlerDirs.Remove(handlerList.SelectedItem as HandlerDirectories);
                 this.NotifyPropertyChanged((handlerList.SelectedItem as HandlerDirectories).Path); // notify all the subscirbers about the removal
-                this.RemoveDirClick.IsEnabled = false;
+                //this.RemoveDirClick.IsEnabled = false;
             }
         }
 
         private void handlerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Console.WriteLine(this.handlerDirs.Count()); //prints how much more dirs there is
-            this.RemoveDirClick.IsEnabled = true;
+           this.RemoveDirClick.IsEnabled = !(this.RemoveDirClick.IsEnabled);
             //Console.WriteLine(this.handlerDirs[0].Path);
         }
 

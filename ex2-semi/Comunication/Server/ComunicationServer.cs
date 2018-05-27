@@ -80,7 +80,13 @@ namespace Comunication.Server
 
         public void SendNewLog(object sender, MessageRecievedEventArgs e)
         {
-            GUICommandRecieved(this, e);
+            try
+            {
+                GUICommandRecieved(this, e);
+            } catch(Exception)
+            {
+                return;
+            }
         }
     }
 }

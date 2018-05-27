@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:Image_Service_GUI.View"
         x:Class="Image_Service_GUI.View.MainWindow"
         mc:Ignorable="d"
-        Title="Image Service" Height="350" Width="600" Background="{Binding VM_BackgroundColor}">
-    
+        Title="Image Service" Height="350" Width="600" Background="{Binding VM_BackgroundColor}"
+        Closing="Window_Closing">
+
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" Margin="10,0,10,5" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged" Height="Auto" Width="Auto">
             <TabItem Header="Settings">

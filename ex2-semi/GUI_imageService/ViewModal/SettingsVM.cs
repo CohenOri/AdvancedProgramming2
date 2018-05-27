@@ -19,11 +19,63 @@ namespace Image_Service_GUI.ViewModel
         private string srcName;
         private string logName;
         private string thumbnailSize;
+        private Boolean removeEnabled;
+
         private SettingsModel settings;
         private ObservableCollection<HandlerDirectories> handlerDirsList;
         public ObservableCollection<HandlerDirectories> HandlerDirsList { get; set; }
         public event EventHandler<ServerDataReciecedEventArgs> NotifyDirRemove;
         public event EventHandler<PropertyChangedEventArgs> AddToList;
+
+        public string VM_OutputDirectory
+        {
+            get
+            {
+                return outputDic;
+
+            }
+            set
+            {
+                outputDic = value;
+            }
+        }
+        public string VM_SrcName
+        {
+            get
+            {
+                return srcName;
+
+            }
+            set { srcName = value; }
+        }
+        public string VM_LogName
+        {
+            get
+            {
+                return logName;
+
+            }
+            set { logName = value; }
+        }
+        public string VM_ThumbnailSize
+        {
+            get
+            {
+                return thumbnailSize;
+
+            }
+            set { thumbnailSize = value; }
+        }
+
+
+        public Boolean VM_RemoveEnabled
+        {
+            get
+            {
+                return this.removeEnabled;
+
+            }
+        }
 
 
         public SettingsVM()
@@ -36,10 +88,13 @@ namespace Image_Service_GUI.ViewModel
             NotifyDirRemove+= this.settings.RemoveHandler;
             AddToList += AddHandlerToList;
             this.settings.GetSettings();
-            this.outputDic = "def";
-            this.srcName = "def";
-            this.logName = "def";
-           this.thumbnailSize = "def";
+            System.Threading.Thread.Sleep(300);
+            // this.outputDic = "def";
+            //  this.srcName = "def";
+            //   this.logName = "def";
+            //  this.thumbnailSize = "def";
+
+            this.removeEnabled = false;
 
         }
 
@@ -51,14 +106,14 @@ namespace Image_Service_GUI.ViewModel
                 JObject settingsObj = JObject.Parse(e.Date);
                 string handlers = (string)settingsObj["Handler"];
                 string[] handlerList = handlers.Split(';');
-                this.thumbnailSize = "" + (int)settingsObj["thumbNail"];
-                this.logName = (string)settingsObj["logName"];
-                this.srcName = (string)settingsObj["sourceName"];
-                this.outputDic = (string)settingsObj["outPutDir"];
                 foreach (string handler in handlerList)
                 {
                     this.AddToList(this, new PropertyChangedEventArgs(handler));
                 }
+                this.thumbnailSize = "" + (int)settingsObj["thumbNail"];
+                this.logName = (string)settingsObj["logName"];
+                this.srcName = (string)settingsObj["sourceName"];
+                this.outputDic = (string)settingsObj["outPutDir"];
             }
             else if (e.DataType.Equals("Log") && e.Date.StartsWith("0:close handler:"))
             {
@@ -73,9 +128,14 @@ namespace Image_Service_GUI.ViewModel
                     }
                 }
                 if(dir != null)
+                {
                     this.HandlerDirsList.Remove(dir);
+                    this.removeEnabled = false;
+                }
             }
         }
+
+        /*
         public string VM_OutputDirectory
         {
             get
@@ -113,6 +173,17 @@ namespace Image_Service_GUI.ViewModel
 
             } set { thumbnailSize = value; }
         }
+
+       
+        public Boolean VM_RemoveEnabled
+        {
+            get
+            {
+                return this.removeEnabled;
+
+            }
+        }
+        **/
 
         public void NotifyServerRemove(object obj, PropertyChangedEventArgs e)
         {

@@ -33,7 +33,7 @@ namespace Image_Service_GUI.ViewModel
             catch (Exception e)
             {
             }*/
-
+            GuiClient.Instance.Connect();
             if (GuiClient.Instance.ConnectedToServer)
             {
                 this.backgroundColor = new SolidColorBrush(Colors.White);

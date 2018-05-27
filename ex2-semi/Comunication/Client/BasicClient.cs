@@ -12,19 +12,16 @@ namespace Comunication.Client
 {
     class BasicClient
     {
-        public BasicClient()
-        {
-            //this.Client = new TcpClient(); // ori added
-        }
+        public BasicClient() { }
         private IPEndPoint ep;
         public IPEndPoint Ep { get { return ep; } set { ep = value; } }
         private TcpClient client;
         private NetworkStream stream;
-       public TcpClient Client { get { return this.client; } set { client = value; } }
+        public TcpClient Client { get { return this.client; } set { client = value; } }
         private static Mutex model_mutex = new Mutex();
 
 
-        private Boolean run { get; set; }
+        private Boolean Run { get; set; }
 
         /// <summary>
         /// connect client to basicClient
@@ -35,12 +32,13 @@ namespace Comunication.Client
             {
                 this.Client.Connect(Ep);
                 stream = this.Client.GetStream();
-                this.run = true;
-            } catch(Exception)
-            {
-                this.run = false;
+                this.Run = true;
             }
-            return run;
+            catch (Exception)
+            {
+                this.Run = false;
+            }
+            return Run;
         }
         /// <summary>
         /// send string message to basicClient
@@ -65,18 +63,18 @@ namespace Comunication.Client
             string data;
             BinaryReader reader = new BinaryReader(stream);
             {
-                        // Get data from basicClient
-                        data = reader.ReadString();
+                // Get data from basicClient
+                data = reader.ReadString();
             }
             return data;
         }
         /// <summary>
         /// close the connection to basicClient;
         /// </summary>
-         public void CloseClient()
+        public void CloseClient()
         {
             this.Client.Close();
-            this.run = false;
+            this.Run = false;
         }
     }
 }

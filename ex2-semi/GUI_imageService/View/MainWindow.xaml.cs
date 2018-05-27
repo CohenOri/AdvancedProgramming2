@@ -1,4 +1,5 @@
-﻿using Image_Service_GUI.ViewModel;
+﻿using Comunication.Client;
+using Image_Service_GUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,7 +43,6 @@ namespace Image_Service_GUI.View
             //Console.WriteLine(template.VisualTree.ToString());
             this.DataContext = new MainWindowVM();
 
-
         }
 
 
@@ -58,6 +58,12 @@ namespace Image_Service_GUI.View
                  (handlerList.SelectedItem as HandlerDirectories).Path = "Random Name";
          }*/
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+           GuiClient.Instance.SendMessage("Close Client");
+        }
+
+     
 
 
 
@@ -65,8 +71,7 @@ namespace Image_Service_GUI.View
 
 
 
-
-        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

@@ -35,6 +35,7 @@ namespace Comunication.Server
                     {
                         //read first message from client.
                         commandLine = reader.ReadString();
+                        if (commandLine.Equals("Close Client")) break;
                         bool check;
                         string[] command = commandLine.Split(':');
                         string result = m_controller.ExecuteCommand(Int32.Parse(command[0]), command, out check);

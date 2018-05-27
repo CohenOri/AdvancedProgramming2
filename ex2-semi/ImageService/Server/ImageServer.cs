@@ -78,7 +78,7 @@ namespace ImageService.Server
         {
             this.m_logging.Log("Server being closed", MessageTypeEnum.WARNING);
             this.CommandRecieved(this, args);
-            while (HanddlersController.Instance.Handdlers.Count() != 0) continue;
+           // while (HanddlersController.Instance.Handdlers.Count() != 0) continue;
             this.m_tcpServer.Stop();
             this.m_logging.MessageRecieved -= this.m_tcpServer.SendNewLog;
         }

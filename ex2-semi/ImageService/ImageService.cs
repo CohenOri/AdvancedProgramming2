@@ -18,6 +18,7 @@ using Logging.Modal;
 using System.Configuration;
 using Infrastructure;
 using ImageService.Commands;
+using Infrastructure.Enums;
 
 namespace ImageService
 {
@@ -145,7 +146,7 @@ namespace ImageService
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
             //send massage to server that service stopped.
             this.m_imageServer.CloseAllHndlers(new CommandRecievedEventArgs(
-                            (int) Infrastructure.Enums.CommandEnum.CloseCommand, null, null));
+                            (int) CommandEnum.CloseCommand, null, null));
             //inform log event of end of operations
             eventLog1.WriteEntry("End of service-good bye");
 

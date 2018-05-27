@@ -135,7 +135,7 @@ namespace ImageService.Controller.Handlers
                 this.m_dirWatcher.EnableRaisingEvents = false;
                 //inform event logger of seccessfull close
                 m_logging.Log("Directory " + this.m_path + "closed successfully", MessageTypeEnum.INFO);
-                m_logging.Log("close handler:" + this.m_path, MessageTypeEnum.INFO);
+                //m_logging.Log("close handler:" + this.m_path, MessageTypeEnum.INFO);
             }
             catch (IOException e)
             {

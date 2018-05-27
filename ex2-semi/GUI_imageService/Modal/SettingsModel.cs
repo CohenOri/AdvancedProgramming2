@@ -13,11 +13,11 @@ namespace GUI_imageService.Modal
 {
     class SettingsModel //: ISettingsModel
     {
-
+/*
         public int thumbNail { get; private set; }
         public string logName { get; private set; }
         public string sourceName { get; private set; }
-        public string outPutDir { get; private set; }
+        public string outPutDir { get; private set; }*/
         public List<string> Handlers { get; private set; }
         public event EventHandler<ServerDataReciecedEventArgs> ReadSettingsFromServer;
         public SettingsModel()
