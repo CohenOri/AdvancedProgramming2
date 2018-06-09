@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebApplication.Models.Student>
+
+@{
+    ViewBag.Title = "ImageWeb";
+}
+
+<h2>Who Are we?</h2>
+
+<table class="table body-content">
+    <tr bgcolor="#52A5D5">
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDNumber)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => student.FirstName)
+
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => student.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.IDNumber)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h3>Service Current Status:</h3>
+<td><p type="text-success" id="status" size="5">@ViewBag.status</p></td>
+<span class="label label-default" id="status1">@ViewBag.status</span>
+<script>
+    var statuss = document.getElementById("status");
+    @{string mm = ViewBag.status.ToString(); }
+    if (@mm  === "Connected yay") document.getElementById("status1").className = "label label-success"
+    else document.getElementById("status1").className = "label label-danger"
+
+</script>
+<h4>Number of pics:</h4>
+<td><p type="text" id="status" size="5">@ViewBag.pics</p></td>
+
+
+
+

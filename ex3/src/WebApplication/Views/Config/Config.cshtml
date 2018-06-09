@@ -1,0 +1,44 @@
+﻿@model WebApplication.Models.Settings
+@{
+    ViewBag.Title = "Config";
+}
+
+<h2>Config</h2>
+    Welcome to config!!!!
+<td><p type="text" id="status" size="10">@ViewBag.message</p></td>
+
+<table  class="table-bordered" >
+    <tr bgcolor="#52A5D5">
+        <th>
+            @Html.DisplayNameFor(model => model.SrcName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThumbNail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OutPutDur)
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.SrcName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.LogName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ThumbNail)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.OutPutDur)
+        </td>
+    </tr>
+</table>
+
+
+<td><p type="text" id="handlerslist" size="10">Handler List</p></td>
+
+
