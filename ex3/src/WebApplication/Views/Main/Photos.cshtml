@@ -1,8 +1,52 @@
-﻿
+﻿@model IEnumerable<WebApplication.Models.PhotoInfo>
+
 @{
     ViewBag.Title = "Photos";
 }
 
-<h2>Photos</h2>
 
-Welcome to photos!!!!
+    <h2>Photos</h2>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <div class="container" id="tourpackages-carousel">
+
+        <div class="row">
+
+
+            @foreach (var photo in Model)
+            {
+                <div class="col-xs-18 col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <img src="@Url.Content(photo.Path)" class="img-circle" alt="Cinque Terre" />
+                        <div class="caption">
+                            <h4>@photo.Name</h4>
+                            <p>@photo.TimeTaken</p>
+                            <p>
+                                <a href="#" class="btn btn-info btn-xs" role="button">View</a>
+                                <button onclick="RemovePicAlert('@photo.Name', '@photo.TimeTaken', '@Url.Content(photo.Path)')" class="btn btn-default btn-xs">Remove</button>
+                            </p>
+                            <p id="demo"></p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <script>
+                function RemovePicAlert(photoName, photoTimeTaken, path) {
+                    var txt;
+                    if (confirm("Are you sure you want to delete photo: '" + photoName + "' taken at: " + photoTimeTaken)) {
+                        $.post("@Url.Action("RemovePic")", path, function () {
+                            window.location.href = "Photos";
+                        });
+                    }
+                }
+            </script>
+
+
+        </div><!-- End row -->
+
+    </div><!-- End container -->

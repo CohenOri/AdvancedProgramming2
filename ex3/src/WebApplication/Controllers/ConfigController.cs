@@ -9,11 +9,12 @@ namespace WebApplication.Controllers
 {
     public class ConfigController : Controller
     {
-        public static Settings settings = new Settings();
+        public static Settings settings = Settings.Instance;
         // GET: Config
         public ActionResult Config()
         {
             ViewBag.message = "you are here!!!";
+            settings.GetData();
             return View(settings);
         }
     }

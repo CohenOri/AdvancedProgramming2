@@ -35,7 +35,9 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult Photos()
         {
-            return View();
+            ViewBag.Ta = "Thum!";
+            PhotosGallery gallery = PhotosGallery.Instance;
+            return View(gallery.PhotoList);
         }
     }
 }

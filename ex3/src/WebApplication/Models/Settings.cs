@@ -18,7 +18,9 @@ namespace WebApplication.Models
         private string logName;
         private string thumbnailSize;
 
-        public Settings()
+
+
+        private Settings()
         {
             this.Handlers = new List<string>();
             this.outputDir = "def";
@@ -26,11 +28,37 @@ namespace WebApplication.Models
             this.logName = "def";
             this.thumbnailSize = "def";
             Client client = Client.Instance;
-            client.Connect();
             client.ServerMassages += SetSettingsData;
-            client.SendMessage("" + (int)CommandEnum.GetConfigCommand);
+            //connect and get data from server
+            GetData();
         }
 
+        private static Settings instance = null;
+        public static Settings Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Settings();
+                }
+                return instance;
+            }
+        }
+        /// <summary>
+        /// connects to server if not connected and send data request
+        /// </summary>
+        public void GetData()
+        {
+            Client client = Client.Instance;
+            if (!client.IsConnected())
+            {
+                client.Connect();
+                //means no connection
+                if (!client.IsConnected()) return;
+            }
+            client.SendMessage("" + (int)CommandEnum.GetConfigCommand);
+        }
         /// <summary>
         /// reads setting data from server, and sets them to the prop's
         /// </summary>
