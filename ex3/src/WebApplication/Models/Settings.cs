@@ -123,6 +123,15 @@ namespace WebApplication.Models
         [Display(Name = "Handlers")]
         public List<string> ListHandlers { get { return this.Handlers; } }
 
+        public string RelativePath { get { return ConvertToRelative(this.outputDir); } }
+
+        // make the path relative and not absolute
+        public string ConvertToRelative(string path)
+        {
+            string[] relativePath = path.Split('\\');
+            //return "~\\" + relativePath[relativePath.Length - 2];
+            return @"~\" + relativePath[relativePath.Length - 2] + '\\' ;
+        }
 
 
     }

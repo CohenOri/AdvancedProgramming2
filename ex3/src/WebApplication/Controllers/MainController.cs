@@ -13,7 +13,7 @@ namespace WebApplication.Controllers
     {
         private Client tcpClient = Client.Instance;
         //create student property
-         private static StudentsInfoList students = new StudentsInfoList();
+        private static StudentsInfoList students = new StudentsInfoList();
 
         // GET: Main
         [HttpGet]
@@ -38,6 +38,14 @@ namespace WebApplication.Controllers
             ViewBag.Ta = "Thum!";
             PhotosGallery gallery = PhotosGallery.Instance;
             return View(gallery.PhotoList);
+        }
+
+        [HttpGet]
+        public string RemovePic(string path)
+        {
+            PhotosGallery gallery = PhotosGallery.Instance;
+            return gallery.RemovePicFromComp(path);
+            //return path;
         }
     }
 }

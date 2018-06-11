@@ -20,13 +20,13 @@
             {
                 <div class="col-xs-18 col-sm-6 col-md-3">
                     <div class="thumbnail">
-                        <img src="@Url.Content(photo.Path)" class="img-circle" alt="Cinque Terre" />
+                        <img src="@Url.Content(photo.RelativePath)" class="img-circle" alt="Cinque Terre" />
                         <div class="caption">
                             <h4>@photo.Name</h4>
                             <p>@photo.TimeTaken</p>
                             <p>
                                 <a href="#" class="btn btn-info btn-xs" role="button">View</a>
-                                <button onclick="RemovePicAlert('@photo.Name', '@photo.TimeTaken', '@Url.Content(photo.Path)')" class="btn btn-default btn-xs">Remove</button>
+                                <button onclick="RemovePicAlert('@photo.Name', '@photo.TimeTaken', '@Url.Content(photo.RelativePath)')" class="btn btn-default btn-xs">Remove</button>
                             </p>
                             <p id="demo"></p>
 
@@ -36,12 +36,16 @@
             }
 
             <script>
-                function RemovePicAlert(photoName, photoTimeTaken, path) {
-                    var txt;
+                function RemovePicAlert(photoName, photoTimeTaken, path_to) {
+                    var txt = "Damn?!";
                     if (confirm("Are you sure you want to delete photo: '" + photoName + "' taken at: " + photoTimeTaken)) {
-                        $.post("@Url.Action("RemovePic")", path, function () {
-                            window.location.href = "Photos";
-                        });
+                        var input = { path:path_to };
+                        $.get("@Url.Action("RemovePic")", input, function (data) {
+                            document.getElementById("demo").innerHTML = data;
+
+                            window.location.reload();
+                            }, "text");
+
                     }
                 }
             </script>

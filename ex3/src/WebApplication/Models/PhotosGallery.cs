@@ -56,8 +56,11 @@ namespace WebApplication.Models
         private PhotosGallery()
         {
             this.settings = Settings.Instance;
+            //string outputFolder = this.settings.RelativePath;
             string outputFolder = this.settings.OutPutDur;
-            CreatePhotosList(outputFolder + "\\" + "Thumbnails");
+
+
+            CreatePhotosList(outputFolder + '\\' + "Thumbnails");
             /*foreach (PhotoInfo p in PhotoList)
             {
                 Console.WriteLine("photo is:" + p.Path + "//" + p.Name + "//" + p.TimeTaken);
@@ -66,6 +69,7 @@ namespace WebApplication.Models
 
         private void CreatePhotosList(String searchFolder)
         {
+            //searchFolder = " + searchFolder;
             //String searchFolder = @"C:\MyFolderWithImages";
 
             var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };
@@ -75,6 +79,8 @@ namespace WebApplication.Models
                 // file exist, we need to find out photo "taken time" or at least creation time (which anyfile should have)
                 DateTime date = new DateTime();
                 string fileNameWithoutExtention = Path.GetFileNameWithoutExtension(filePath);
+                string fileExtention = Path.GetExtension(filePath);
+                string fullFileName = fileNameWithoutExtention + fileExtention;
 
                 try
                 {
@@ -96,8 +102,7 @@ namespace WebApplication.Models
                 // add photo to photos list
                 this.photosList.Add(new PhotoInfo(filePath, date.ToLongDateString(), fileNameWithoutExtention));
 
-                //string fileExtention = Path.GetExtension(filePath);
-                //string fullFileName = fileNameWithoutExtention + fileExtention;
+
                 //string relatviePath = ".." + filePath;
                 //this.photosList.Add(new PhotoInfo(fullFileName, date.ToLongDateString(), fileNameWithoutExtention));
 
@@ -136,40 +141,64 @@ namespace WebApplication.Models
             }
         }
 
-        public void RemovePic(string path)
+        public string RemovePicFromComp(string path)
         {
+
+            //return path;
+
+
             // iterate on the copy of the list and remove the photo with given path 
             // (in order to not edit + iterate on loop the same time)
-            foreach (PhotoInfo p in photosList.ToList<PhotoInfo>())
+            PhotoInfo photo = null;
+            string temp = null;
+            foreach (PhotoInfo p in photosList)
             {
-                if(p.Path == path)
+                temp = p.RelativePath.Replace(@"\\", @"\");
+                temp = temp.Replace(@"\", "/");
+                temp = temp.Replace("~", "");
+                //return path + "      p.path:      " + p.RelativePath + "yyy" + temp;                
+
+                if (path == temp)
                 {
-                    photosList.Remove(p);
+                    photo = p;
+                    break;
                 }
             }
-
-            // remove thumbnail file from computer
-            if (File.Exists(path))
+            
+            if (photo != null)
             {
-                File.Delete(path);
+                photosList.Remove(photo);
+                //return photo.Path;
+                //return "im here?";
             }
+
+            //return photo.Path;
+              // remove thumbnail file from computer
+              if (File.Exists(photo.Path))
+              {
+                  File.Delete(photo.Path);
+              }
+
 
             // remove the "\\" + "Thumbnails" but keep the rest path
-            string cleanPath = StringWordsRemove(path, "\\Thumbnails");
+            string cleanPath = photo.Path.Replace(@"\\Thumbnails", "");
+            //return cleanPath;
             // now remove actual image [not Thumbnail]
             if (File.Exists(cleanPath))
-            {
-                File.Delete(cleanPath);
-            }
+              {
+                  File.Delete(cleanPath);
+                return "succesfuly deleted files";
+              }
+            return "problem";
         }
 
-        public static string StringWordsRemove(string stringToClean, string wordsToRemove)
+        /*public static string StringWordsRemove(string stringToClean, string wordsToRemove)
         {
             string[] splitWords = wordsToRemove.Split(new Char[] { ' ' });
             string pattern = " (" + string.Join("|", splitWords) + ") ";
             string cleaned = Regex.Replace(stringToClean, pattern, " ");
             return cleaned;
-        }
+        }*/
 
     }
 
