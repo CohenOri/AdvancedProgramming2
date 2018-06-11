@@ -41,7 +41,6 @@ namespace WebApplication.Models
         {
             basicClient = new BasicClient();
             this.DataRecived = false;
-            this.ServerMassages += ReadFromServer;
         }
         void changeStat(bool stat)
         {
@@ -137,29 +136,5 @@ namespace WebApplication.Models
             
             return this.listenToServer;
         }
-
-        public void ReadFromServer(object sender, ServerDataReciecedEventArgs e)
-        {
-            this.DataRecived = true;
-            if (e.Date.Equals("2:Disconnected from server-bye"))
-            {
-                this.listenToServer = false;
-            } else if (e.DataType.Equals("LogList"))
-            {
-
-            } else if(e.DataType.Equals("Log") && (e.Date.StartsWith("0:close handler:")))
-            {
-
-            } else if(e.DataType.Equals("Settings"))
-            {
-
-            } else if(e.DataType.Equals("Log"))
-            {
-
-            }
-            this.DataRecived = false;
-
-        }
-
     }
 }

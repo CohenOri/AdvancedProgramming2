@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+Are you sure...?
+@ViewBag.path
+<div class="container">
+    <input type="button" id="okBtn" class="btn btn-danger" value="OK" />
+    <input type="button" id="cnlBtn" class="btn" value="cancel" />
+</div>
+<script>
+    $("#cnlBtn").click(function () {
+        window.location.replace("@Url.Action("Config", "Config",new  { })");
+    });
+
+    $("#okBtn").click(function () {
+        $("#okBtn").addClass("disabled");
+        var yana = { path:"@ViewBag.path"};
+        $.get("@Url.Action("DeleteHandler")", yana, function (data) {
+            alert("Data: " + data);
+            window.location.replace("@Url.Action("Config", "Config",new  { })");
+        }, "text");
+    });
+</script>

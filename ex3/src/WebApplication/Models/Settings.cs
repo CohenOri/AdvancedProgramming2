@@ -73,7 +73,8 @@ namespace WebApplication.Models
                 string[] handlerList = handlers.Split(';');
                 foreach (string handler in handlerList)
                 {
-                    this.Handlers.Add(handler);
+                    if(!this.Handlers.Contains(handler))
+                        this.Handlers.Add(handler);
                 }
                 this.thumbnailSize = "" + (int)settingsObj["thumbNail"];
                 this.logName = (string)settingsObj["logName"];
@@ -133,6 +134,10 @@ namespace WebApplication.Models
             return @"~\" + relativePath[relativePath.Length - 2] + '\\' ;
         }
 
-
+        public void RemoveHandler(string path)
+        {
+            Client.Instance.SendMessage("" + (int)CommandEnum.CloseCommand + ":" + path);
+        }
     }
+
 }

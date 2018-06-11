@@ -13,7 +13,7 @@ namespace WebApplication.Controllers
     {
         private Client tcpClient = Client.Instance;
         //create student property
-        private static StudentsInfoList students = new StudentsInfoList();
+         private static StudentsInfoList students = new StudentsInfoList();
 
         // GET: Main
         [HttpGet]
@@ -23,18 +23,17 @@ namespace WebApplication.Controllers
             tcpClient.Connect();
             //get status of connection
             Boolean status = tcpClient.IsConnected();
-            if (status) ViewBag.Status = "Connected yay";
+            if (status) ViewBag.Status = "Connected";
             else ViewBag.Status = "dis-Connected boo";
+            ViewBag.picNumber = PhotosGallery.Instance.PhotoList.Count();
             return View(students.Students);
         }
-        [HttpGet]
-        public ActionResult Logs()
-        {
-            return View();
-        }
+
+
         [HttpGet]
         public ActionResult Photos()
         {
+            tcpClient.Connect();
             ViewBag.Ta = "Thum!";
             PhotosGallery gallery = PhotosGallery.Instance;
             return View(gallery.PhotoList);

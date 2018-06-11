@@ -24,9 +24,7 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => student.FirstName)
-
             </td>
-
             <td>
                 @Html.DisplayFor(modelItem => student.LastName)
             </td>
@@ -38,18 +36,16 @@
 
 </table>
 
-<h3>Service Current Status:</h3>
-<td><p type="text-success" id="status" size="5">@ViewBag.status</p></td>
-<span class="label label-default" id="status1">@ViewBag.status</span>
+<h4>
+    Service Current Status:<span class="label label-default" id="status1">@ViewBag.status</span>
+</h4>
 <script>
-    var statuss = document.getElementById("status");
-    @{string mm = ViewBag.status.ToString(); }
-    if (@mm  === "Connected yay") document.getElementById("status1").className = "label label-success"
-    else document.getElementById("status1").className = "label label-danger"
-
+    var  statuss = "@ViewBag.status";
+    if (statuss == "Connected") $("#status1").text("Connected").removeClass("label-default").addClass("label-success");
+    else $("#status1").text("DisConnected").removeClass("label-default").addClass("label-danger");
 </script>
-<h4>Number of pics:</h4>
-<td><p type="text" id="status" size="5">@ViewBag.pics</p></td>
+
+<h4>Number of pics: <span class="badge">@ViewBag.picNumber</span></h4>
 
 
 

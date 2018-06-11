@@ -7,7 +7,7 @@
     Welcome to config!!!!
 <td><p type="text" id="status" size="10">@ViewBag.message</p></td>
 
-<table  class="table-bordered" >
+<table class="table-bordered">
     <tr bgcolor="#52A5D5">
         <th>
             @Html.DisplayNameFor(model => model.SrcName)
@@ -39,6 +39,21 @@
 </table>
 
 
-<td><p type="text" id="handlerslist" size="10">Handler List</p></td>
+<td><p type="text" id="handlerslist" size="40">Handler List</p></td>
 
+<div class="btn-group-vertical">
+    For brave people: to delete a handler click on one of them.
+    @{ var i = 0;
+        if (Model.Handlers.Count() != 0)
+        {
+            foreach (var handler in Model.Handlers)
+            {//create linked
+            <a href="@Url.Action("Delete", "Config", new { path = handler })" class="btn btn-info btn-lg" role="button">
+                @Html.DisplayFor(modelItem => handler)
+            </a>
+                    i++;
+                }
 
+            }
+        }
+</div>
