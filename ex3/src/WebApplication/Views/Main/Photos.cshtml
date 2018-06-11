@@ -25,7 +25,7 @@
                             <h4>@photo.Name</h4>
                             <p>@photo.TimeTaken</p>
                             <p>
-                                <a href="#" class="btn btn-info btn-xs" role="button">View</a>
+                                <a href="@Url.Action("ViewFullPhoto", "Main", new { name = photo.Name, timeTaken = photo.TimeTaken, path = Url.Content(photo.Path), relPath = @Url.Content(photo.RelativePath) })" class="btn btn-info btn-xs" role="button">View</a>
                                 <button onclick="RemovePicAlert('@photo.Name', '@photo.TimeTaken', '@Url.Content(photo.RelativePath)')" class="btn btn-default btn-xs">Remove</button>
                             </p>
                             <p id="demo"></p>

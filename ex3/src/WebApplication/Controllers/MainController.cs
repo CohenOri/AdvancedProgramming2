@@ -47,5 +47,13 @@ namespace WebApplication.Controllers
             return gallery.RemovePicFromComp(path);
             //return path;
         }
+
+        public ActionResult ViewFullPhoto(string name, string timeTaken, string path, string relPath)
+        {
+            //path = path.Replace(@"\Thumbnails", "");
+            string cleanPath = relPath.Replace("/Thumbnails", "");
+
+            return View(new PhotoInfo(path, timeTaken, name, cleanPath));
+        }
     }
 }
