@@ -41,7 +41,7 @@ namespace ImageService.Commands
             MessageTypeEnum resultOfDeleting = MessageTypeEnum.FAIL;
             string status = handlersList.DeleteHandller(args[1] + ":" + args[2]);
             //if(status != )
-            m_service.Log("close handler:" + args[1] + ":"+ args[2], MessageTypeEnum.INFO);
+            m_service.Log("close handler:" + args[1] + ":"+ args[2], MessageTypeEnum.WARNING);
             AppCongigSettings settings = AppCongigSettings.Instance;
             
             settings.Handlers = settings.Handlers.Replace(args[1] + ":" + args[2] + ";", "");

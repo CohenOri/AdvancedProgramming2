@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
 using System.Web;
 
 namespace WebApplication.Models
@@ -58,6 +59,10 @@ namespace WebApplication.Models
                 if (!client.IsConnected()) return;
             }
             client.SendMessage("" + (int)CommandEnum.GetConfigCommand);
+            lock (client.objc) // Grab the phone when I have something ready for the worker
+            {
+                Monitor.Wait(client.objc); // Wait for the work to be done
+            }
         }
         /// <summary>
         /// reads setting data from server, and sets them to the prop's
@@ -66,6 +71,7 @@ namespace WebApplication.Models
         /// <param name="e"></param>
         public void SetSettingsData(object obj, ServerDataReciecedEventArgs e)
         {
+     
             if (e.DataType.Equals("Settings")) // if reads "settings" as pre-command from server, we now need to read settings
             {
                 JObject settingsObj = JObject.Parse(e.Date);
@@ -80,9 +86,13 @@ namespace WebApplication.Models
                 this.logName = (string)settingsObj["logName"];
                 this.srcName = (string)settingsObj["sourceName"];
                 this.outputDir = (string)settingsObj["OutPutDir"];
+                lock (Client.Instance.objc) // Grab the phone when I have something ready for the worker
+                {
+                    Monitor.PulseAll(Client.Instance.objc); // Signal worker there is work to do
+                }
             }
             // if not Log or Close cmd & not settings.. - Handlers cmd
-            else if (e.DataType.Equals("Log") && e.Date.StartsWith("0:close handler:"))
+            else if (e.DataType.Equals("Log") && e.Date.StartsWith("1:close handler:"))
             {
                 string starts = e.Date.Substring(16); // reads handlres...
                 String dir = null;
@@ -97,6 +107,10 @@ namespace WebApplication.Models
                 if (dir != null)
                 {
                     this.Handlers.Remove(dir);
+                }
+                lock (Client.Instance.objc) // Grab the phone when I have something ready for the worker
+                {
+                    Monitor.PulseAll(Client.Instance.objc); // Signal worker there is work to do
                 }
             }
         }

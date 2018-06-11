@@ -119,7 +119,7 @@ namespace Image_Service_GUI.ViewModel
                 this.outputDic = (string)settingsObj["OutPutDir"];
             }
             // if not Log or Close cmd & not settings.. - Handlers cmd
-            else if (e.DataType.Equals("Log") && e.Date.StartsWith("0:close handler:"))
+            else if (e.DataType.Equals("Log") && e.Date.StartsWith("1:close handler:"))
             {
                 string starts = e.Date.Substring(16); // reads handlres...
                 HandlerDirectories dir = null;

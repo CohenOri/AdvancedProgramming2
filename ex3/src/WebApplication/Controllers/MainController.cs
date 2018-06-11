@@ -21,10 +21,11 @@ namespace WebApplication.Controllers
         {
             //try to connect to server
             tcpClient.Connect();
+            Settings.Instance.GetData();
             //get status of connection
             Boolean status = tcpClient.IsConnected();
             if (status) ViewBag.Status = "Connected";
-            else ViewBag.Status = "dis-Connected boo";
+            else ViewBag.Status = "dis-Connected";
             ViewBag.picNumber = PhotosGallery.Instance.PhotoList.Count();
             return View(students.Students);
         }
@@ -34,8 +35,10 @@ namespace WebApplication.Controllers
         public ActionResult Photos()
         {
             tcpClient.Connect();
+            Settings.Instance.GetData();
             ViewBag.Ta = "Thum!";
             PhotosGallery gallery = PhotosGallery.Instance;
+            gallery.CreatePhotosList(Settings.Instance.OutPutDur + '\\' + "Thumbnails");
             return View(gallery.PhotoList);
         }
 

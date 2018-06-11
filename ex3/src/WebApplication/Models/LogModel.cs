@@ -36,7 +36,11 @@ namespace WebApplication.Models
             if (Client.Instance.IsConnected())
                 {
                     Client.Instance.SendMessage("" + (int)CommandEnum.LogCommand);
+                lock (Client.Instance.objc) // Grab the phone when I have something ready for the worker
+                {
+                    Monitor.Wait(Client.Instance.objc); // Signal worker there is work to do
                 }
+            }
         }
 
         /// <summary>
@@ -47,6 +51,7 @@ namespace WebApplication.Models
         /// <param name="e"></param>
         public void ReadFromServer(object sender, ServerDataReciecedEventArgs e)
         {
+
             //if only one log recived
             if (e.DataType.Equals("Log") && (!(e.Date.StartsWith("0:close handler:"))))
             {
@@ -57,6 +62,10 @@ namespace WebApplication.Models
                     Data = e.Date
 
                 });
+                lock (Client.Instance.objc)
+                {
+                    Monitor.PulseAll(Client.Instance.objc); // Signal 
+                }
             }
             //if log list(!) recived. recived in string, each log sperated by ";"
             else if (e.DataType.Equals("LogList"))
@@ -72,6 +81,10 @@ namespace WebApplication.Models
                         Data = log
 
                     });
+                }
+                lock (Client.Instance.objc)
+                {
+                    Monitor.PulseAll(Client.Instance.objc); // Signal 
                 }
             }
         }

@@ -4,20 +4,19 @@
     ViewBag.Title = "ViewFullPhoto";
 }
 
-<h2>ViewFullPhoto</h2>
+<h1>ViewFullPhoto</h1>
 
 <div class="col-xs-18 col-sm-6 col-md-3">
-    <div class="thumbnail">
+    <div class="caption" text-align="center">
+        <h4>name: @Model.Name</h4>
+        <p>time: @Model.TimeTaken</p>
+        <p>
+            <button onclick="RemovePicAlert('@Model.Name', '@Model.TimeTaken', '@Url.Content(Model.AbsToRelativePath(Model.Path))')" class="btn btn-default btn-xs">Remove</button>
+        </p>
+        <p id="demo"></p>
         <img src="@Url.Content(Model.RelativePath)" />
-        <div class="caption">
-            <h4>@Model.Name</h4>
-            <p>@Model.TimeTaken</p>
-            <p>
-                <button onclick="RemovePicAlert('@Model.Name', '@Model.TimeTaken', '@Url.Content(Model.AbsToRelativePath(Model.Path))')" class="btn btn-default btn-xs">Remove</button>
-            </p>
-            <p id="demo"></p>
 
-        </div>
+
     </div>
 </div>
 

@@ -20,6 +20,7 @@ namespace WebApplication.Models
         delegate void ChangeStatus(bool status);
         public Boolean ConnectedToServer { get { return this.listenToServer; } }
         public Boolean DataRecived { get; set; }
+        public object objc;
 
         private static Client instance = null;
         public static Client Instance
@@ -41,6 +42,7 @@ namespace WebApplication.Models
         {
             basicClient = new BasicClient();
             this.DataRecived = false;
+            this.objc = new object();
         }
         void changeStat(bool stat)
         {

@@ -3,7 +3,7 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h1>Delete</h1>
 Are you sure...?
 @ViewBag.path
 <div class="container">
@@ -17,9 +17,9 @@ Are you sure...?
 
     $("#okBtn").click(function () {
         $("#okBtn").addClass("disabled");
-        var yana = { path:"@ViewBag.path"};
-        $.get("@Url.Action("DeleteHandler")", yana, function (data) {
-            alert("Data: " + data);
+        var input = { path:"@ViewBag.path"};
+        $.get("@Url.Action("DeleteHandler")", input, function (data) {
+            alert(data + " deleted!");
             window.location.replace("@Url.Action("Config", "Config",new  { })");
         }, "text");
     });

@@ -67,11 +67,13 @@ namespace WebApplication.Models
             }*/
         }
 
-        private void CreatePhotosList(String searchFolder)
+        public  void CreatePhotosList(String searchFolder)
         {
+            if (!Client.Instance.IsConnected()) return;
+            Directory.CreateDirectory(searchFolder);
+
             //searchFolder = " + searchFolder;
             //String searchFolder = @"C:\MyFolderWithImages";
-
             var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };
             var files = GetFilesFrom(searchFolder, filters, true);
             foreach (String filePath in files)
@@ -99,8 +101,18 @@ namespace WebApplication.Models
                     }
                 }
 
-                // add photo to photos list
-                this.photosList.Add(new PhotoInfo(filePath, date.ToLongDateString(), fileNameWithoutExtention));
+                // add photo to photos list-check first if not already exist
+                PhotoInfo newPhoto = null;
+                foreach(PhotoInfo photo in this.photosList)
+                {
+                    if(photo.Path.Equals(filePath)) {
+                        newPhoto = photo;
+                        break ;
+                    }
+                }
+                if(newPhoto == null)
+                    this.photosList.Add(new PhotoInfo(filePath, date.ToLongDateString(), fileNameWithoutExtention));
+
 
 
                 //string relatviePath = ".." + filePath;
