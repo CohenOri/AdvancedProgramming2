@@ -1,3 +1,69 @@
+commit 549c86152f5bd02cb102c8f35bd38d6c89b6e0a5
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Tue Jun 12 13:05:26 2018 +0300
+
+    last changed-working web! good for us
+
+commit af5e0c8db5c2e69a2ab8887ae5092f4655a02c7a
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Tue Jun 12 12:29:55 2018 +0300
+
+    Commets are done. final testing
+
+commit 8dfb3943c08d290a5b5e41cbbd48c8fd529955c8
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Tue Jun 12 10:35:54 2018 +0300
+
+    i add background pic and some effects
+
+commit c4d7b4a82f658b05a1350ba0bc461fd77d6a2f4c
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Tue Jun 12 01:40:34 2018 +0300
+
+    Bug fixed. hope everything wotks. note: i changed imageservice project.
+
+commit aa4112eaf766f199e762412e705bd06c6ab6d89d
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Mon Jun 11 19:47:48 2018 +0300
+
+    last twork
+
+commit 07df8949cdfc85193cf90e0d99545c04ec1279b9
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Mon Jun 11 19:18:32 2018 +0300
+
+    Web gallery is done except nice comments
+
+commit eecf0509ac586283c325a2915ee4c77a44c0c996
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Mon Jun 11 17:52:23 2018 +0300
+
+    Web gallery almost done, just add view
+
+commit c3a4895455e5572e3c3e7b6217054f4b4f91a121
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Sun Jun 10 23:12:55 2018 +0300
+
+    Web gallery in the works
+
+commit 42368310cf989cbbb94e42cba934a3d17758e245
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Sat Jun 9 18:32:18 2018 +0300
+
+    web application. added home and config-not finished
+
+commit d0ed5ada6a4d802072181b0027b3efb463b3dfdc
+Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
+Date:   Sun May 27 23:21:49 2018 +0300
+
+    Last Working version + zip
+
+commit f17ae16bb46610aff7abca01acc0b63319be7769
+Author: CohenOri <oricohen70@gmail.com>
+Date:   Sun May 27 22:10:05 2018 +0300
+
+    GUI comments finished
+
 commit 3b741f01bb5bbb56cc1997d6a1d8c04a87b143c5
 Author: Yana Patyuk <yana.patyuk@live.biu.ac.il>
 Date:   Sun May 27 20:44:53 2018 +0300
