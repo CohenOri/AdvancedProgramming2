@@ -3,11 +3,21 @@
 @{
     ViewBag.Title = "ImageWeb";
 }
-
+<style>
+    body {
+        background-image: url("/back.png");
+        background-repeat: no-repeat;
+        background-position: right top;
+        margin-right: 200px;
+    }
+    table, th, td {
+        border-collapse: collapse;
+    }
+</style>
 <h1>Who Are we?</h1>
 
 
-<table class="table body-content">
+<table class="table body-content" border-collapse="collapse">
     <tr bgcolor="#52A5D5">
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
