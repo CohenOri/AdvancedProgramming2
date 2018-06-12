@@ -113,7 +113,7 @@ namespace ImageService.Controller.Handlers
             else
             {
                 // close command
-                m_logging.Log("Recevied Close Command for path:" + this.m_path, MessageTypeEnum.INFO);
+                m_logging.Log("Recevied Close Command for path:" + this.m_path, MessageTypeEnum.WARNING);
                 // finish handle the directory
                 CloseDirectory();
                 return;

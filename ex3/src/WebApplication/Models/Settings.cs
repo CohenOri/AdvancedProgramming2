@@ -81,7 +81,7 @@ namespace WebApplication.Models
                 this.Handlers.Clear();
                 foreach (string handler in handlerList)
                 {
-                    if(!this.Handlers.Contains(handler))
+                    if((!this.Handlers.Contains(handler))&&(handler != null)&&(handler != ""))
                         this.Handlers.Add(handler);
                 }
                 this.thumbnailSize = "" + (int)settingsObj["thumbNail"];
@@ -114,6 +114,11 @@ namespace WebApplication.Models
                 {
                     Monitor.PulseAll(Client.Instance.objc); // Signal worker there is work to do
                 }
+            } else if (e.DataType.Equals("Log") && e.Date.StartsWith("1:Server being closed"))
+            {
+                // clear the list beacuse server disconnected
+                this.Handlers.Clear();
+
             }
         }
 

@@ -16,6 +16,7 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult Logs()
         {
+            logs.CheckIfServerReconnected();
             return View(logs.LogList);
         }
     }

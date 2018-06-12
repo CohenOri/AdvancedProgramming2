@@ -13,6 +13,7 @@ namespace WebApplication.Models
     {
         private List<Log> logList;
         public List<Log> LogList { get { return this.logList; } }
+        private bool gotList;
         /// <summary>
         /// C'tor for logModal
         /// </summary>
@@ -20,27 +21,30 @@ namespace WebApplication.Models
         {
             Client c = Client.Instance;
             this.logList = new List<Log>();
+            this.gotList = false;
             c.Connect();
             c.ServerMassages += ReadFromServer; // add methods to trigger when new message arive to GUI client
             GetLogList();
         }
-
         /// <summary>
         /// GetLogList cmd to send to server when asking for log list
         /// </summary>
         public void GetLogList()
         {
+            this.gotList = false;
             if (!Client.Instance.ConnectedToServer)
                 Client.Instance.Connect();
 
             if (Client.Instance.IsConnected())
                 {
                     Client.Instance.SendMessage("" + (int)CommandEnum.LogCommand);
+                    this.gotList = true;
                 lock (Client.Instance.objc) // Grab the phone when I have something ready for the worker
                 {
                     Monitor.Wait(Client.Instance.objc); // Signal worker there is work to do
                 }
-            }
+            } else
+                this.gotList = false;
         }
 
         /// <summary>
@@ -87,6 +91,21 @@ namespace WebApplication.Models
                     Monitor.PulseAll(Client.Instance.objc); // Signal 
                 }
             }
+        }
+        /// <summary>
+        /// check if during work, we connected to server after web connected.
+        /// if so-connect;
+        /// </summary>
+        public void CheckIfServerReconnected()
+        {
+            if(Client.Instance.IsConnected()&&(!this.gotList))
+            {
+                this.GetLogList();
+            } else if (!Client.Instance.IsConnected())
+            {
+                this.GetLogList();
+            }
+
         }
     }
 }
