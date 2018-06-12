@@ -17,6 +17,7 @@ Are you sure you want to delete :
 
     $("#okBtn").click(function () {
         $("#okBtn").addClass("disabled");
+        $("cnlBtn").addClass("disabled");
         var input = { path:"@ViewBag.path"};
         $.get("@Url.Action("DeleteHandler")", input, function (data) {
             alert(data + " deleted!");

@@ -21,15 +21,14 @@
 </div>
 
 <script>
-                function RemovePicAlert(photoName, photoTimeTaken, path_to) {
-                    var txt = "Damn?!";
-                    if (confirm("Are you sure you want to delete photo: '" + photoName + "' taken at: " + photoTimeTaken)) {
-                        var input = { path:path_to };
-                        $.get("@Url.Action("RemovePic")", input, function (data) {
-                            //document.getElementById("demo").innerHTML = data;
-                            window.location.replace("@Url.Action("Photos", "Main", new { })");
-                            }, "text");
+    function RemovePicAlert(photoName, photoTimeTaken, path_to) {
+        // pop alert to make sure the user wants to delete this photo
+        if (confirm("Are you sure you want to delete photo: '" + photoName + "' taken at: " + photoTimeTaken)) {
+            var input = { path: path_to };
+            $.get("@Url.Action("RemovePic")", input, function (data) {
+                window.location.replace("@Url.Action("Photos", "Main", new { })"); // move back to gallery view
+            }, "text");
 
-                    }
-                }
+        }
+    }
 </script>

@@ -1,34 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Text.RegularExpressions;
-using Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 
 namespace WebApplication.Models
@@ -36,11 +12,12 @@ namespace WebApplication.Models
     public class PhotosGallery
     {
         private List<PhotoInfo> photosList = new List<PhotoInfo>();
-        public List<PhotoInfo> PhotoList { get { return photosList; } }
-
         private Settings settings;
         private static Regex r = new Regex(":");
         private static PhotosGallery instance = null;
+
+        public List<PhotoInfo> PhotoList { get { return photosList; } }
+        // Singelton
         public static PhotosGallery Instance
         {
             get
@@ -56,25 +33,24 @@ namespace WebApplication.Models
         private PhotosGallery()
         {
             this.settings = Settings.Instance;
-            //string outputFolder = this.settings.RelativePath;
             string outputFolder = this.settings.OutPutDur;
-
-
+            // create photo list using actuall photos
             CreatePhotosList(outputFolder + '\\' + "Thumbnails");
-            /*foreach (PhotoInfo p in PhotoList)
-            {
-                Console.WriteLine("photo is:" + p.Path + "//" + p.Name + "//" + p.TimeTaken);
-            }*/
         }
 
-        public  void CreatePhotosList(String searchFolder)
+
+        /// <summary>
+        /// Create photo list from photos in given folder
+        /// </summary>
+        /// <param name="searchFolder">given folder</param>
+        public void CreatePhotosList(String searchFolder)
         {
             if (!Client.Instance.IsConnected()) return;
-            Directory.CreateDirectory(searchFolder);
+            Directory.CreateDirectory(searchFolder); // first make sure there's such directory
 
-            //searchFolder = " + searchFolder;
-            //String searchFolder = @"C:\MyFolderWithImages";
+            // serch for image files ending with..
             var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };
+            // search recursively in subfolders
             var files = GetFilesFrom(searchFolder, filters, true);
             foreach (String filePath in files)
             {
@@ -84,15 +60,18 @@ namespace WebApplication.Models
                 string fileExtention = Path.GetExtension(filePath);
                 string fullFileName = fileNameWithoutExtention + fileExtention;
 
+                // remove the "\\" + "Thumbnails" but keep the rest path
+                // try to retrieve taken time from actual photo [not Thumnail]
+                string originalPhotoPath = filePath.Replace(@"\\Thumbnails", "");
                 try
                 {
-                    date = GetDateTakenFromImage(filePath); // try to retrieve taken time
+                    date = GetDateTakenFromImage(originalPhotoPath); 
                 }
                 catch
                 {
                     try
                     {
-                        date = File.GetCreationTime(filePath); // try to retrieve created time
+                        date = File.GetCreationTime(originalPhotoPath); // try to retrieve created time
                     }
                     catch (IOException e)
                     {
@@ -103,21 +82,16 @@ namespace WebApplication.Models
 
                 // add photo to photos list-check first if not already exist
                 PhotoInfo newPhoto = null;
-                foreach(PhotoInfo photo in this.photosList)
+                foreach (PhotoInfo photo in this.photosList)
                 {
-                    if(photo.Path.Equals(filePath)) {
+                    if (photo.Path.Equals(filePath))
+                    {
                         newPhoto = photo;
-                        break ;
+                        break;
                     }
                 }
-                if(newPhoto == null)
+                if (newPhoto == null)
                     this.photosList.Add(new PhotoInfo(filePath, date.ToLongDateString(), fileNameWithoutExtention));
-
-
-
-                //string relatviePath = ".." + filePath;
-                //this.photosList.Add(new PhotoInfo(fullFileName, date.ToLongDateString(), fileNameWithoutExtention));
-
             }
         }
 
@@ -153,30 +127,32 @@ namespace WebApplication.Models
             }
         }
 
+        /// <summary>
+        /// Remove pic stored at given path
+        /// </summary>
+        /// <param name="path">path to pic to remove</param>
+        /// <returns></returns>
         public string RemovePicFromComp(string path)
         {
-
-            //return path;
-
-
-            // iterate on the copy of the list and remove the photo with given path 
-            // (in order to not edit + iterate on loop the same time)
+            // iterate on the list and remove the photo with given path 
+            // (note you cant edit + iterate on loop the same time)
             PhotoInfo photo = null;
             string temp = null;
             foreach (PhotoInfo p in photosList)
             {
+                // convert photo p [in photoList] relative path to same represtation of given path to remove
                 temp = p.RelativePath.Replace(@"\\", @"\");
                 temp = temp.Replace(@"\", "/");
                 temp = temp.Replace("~", "");
-                //return path + "      p.path:      " + p.RelativePath + "yyy" + temp;                
 
-                if (path == temp)
+                if (path == temp) // if found photo p with the same path to photo to remove save reference to p
                 {
                     photo = p;
                     break;
                 }
             }
-            
+
+            // remove the photo [p] from the list
             if (photo != null)
             {
                 photosList.Remove(photo);
@@ -184,33 +160,22 @@ namespace WebApplication.Models
                 //return "im here?";
             }
 
-            //return photo.Path;
-              // remove thumbnail file from computer
-              if (File.Exists(photo.Path))
-              {
-                  File.Delete(photo.Path);
-              }
-
+            // remove thumbnail file from computer
+            if (File.Exists(photo.Path))
+            {
+                File.Delete(photo.Path);
+            }
 
             // remove the "\\" + "Thumbnails" but keep the rest path
             string cleanPath = photo.Path.Replace(@"\\Thumbnails", "");
-            //return cleanPath;
             // now remove actual image [not Thumbnail]
             if (File.Exists(cleanPath))
-              {
-                  File.Delete(cleanPath);
-                return "succesfuly deleted files";
-              }
+            {
+                File.Delete(cleanPath);
+                return "successfully deleted files";
+            }
             return "problem";
         }
-
-        /*public static string StringWordsRemove(string stringToClean, string wordsToRemove)
-        {
-            string[] splitWords = wordsToRemove.Split(new Char[] { ' ' });
-            string pattern = " (" + string.Join("|", splitWords) + ") ";
-            string cleaned = Regex.Replace(stringToClean, pattern, " ");
-            return cleaned;
-        }*/
 
     }
 

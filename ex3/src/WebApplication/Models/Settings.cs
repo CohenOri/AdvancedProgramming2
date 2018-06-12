@@ -77,6 +77,8 @@ namespace WebApplication.Models
                 JObject settingsObj = JObject.Parse(e.Date);
                 string handlers = (string)settingsObj["Handler"];
                 string[] handlerList = handlers.Split(';');
+                // clear the list and get new handlers
+                this.Handlers.Clear();
                 foreach (string handler in handlerList)
                 {
                     if(!this.Handlers.Contains(handler))

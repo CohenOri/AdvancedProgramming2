@@ -31,30 +31,38 @@ namespace WebApplication.Controllers
         }
 
 
+        // Get: Photos gallery page
         [HttpGet]
         public ActionResult Photos()
         {
-            tcpClient.Connect();
-            Settings.Instance.GetData();
-            ViewBag.Ta = "Thum!";
+            tcpClient.Connect(); // try to connect to server
+            Settings.Instance.GetData(); // read settings data
             PhotosGallery gallery = PhotosGallery.Instance;
-            gallery.CreatePhotosList(Settings.Instance.OutPutDur + '\\' + "Thumbnails");
+            gallery.CreatePhotosList(Settings.Instance.OutPutDur + '\\' + "Thumbnails"); // generate gallery
             return View(gallery.PhotoList);
         }
 
+        // Remove pic from gallery using given path (sent from gallery view)
         [HttpGet]
         public string RemovePic(string path)
         {
             PhotosGallery gallery = PhotosGallery.Instance;
             return gallery.RemovePicFromComp(path);
-            //return path;
         }
 
+        /// <summary>
+        /// Get photo details (sent from gallery view), and send the data to ViewFullPhoto screen
+        /// </summary>
+        /// <param name="name">photo name</param>
+        /// <param name="timeTaken">photo time taken</param>
+        /// <param name="path">photo thumbnail full path</param>
+        /// <param name="relPath">photo thumbnail relative path</param>
+        /// <returns></returns>
         public ActionResult ViewFullPhoto(string name, string timeTaken, string path, string relPath)
         {
-            //path = path.Replace(@"\Thumbnails", "");
+            // cleanPath represents the original photo path cleaned from /Thumbnails
             string cleanPath = relPath.Replace("/Thumbnails", "");
-
+            // send thumnail path, timeTaken, name and CleanPath as full resolution photo relative path
             return View(new PhotoInfo(path, timeTaken, name, cleanPath));
         }
     }
