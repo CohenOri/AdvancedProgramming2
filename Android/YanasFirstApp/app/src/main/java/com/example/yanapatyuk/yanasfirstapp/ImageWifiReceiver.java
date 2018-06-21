@@ -11,9 +11,12 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImageWifiReceiver extends BroadcastReceiver {
-private ClientTcp clientTcp;
+    private ClientTcp clientTcp;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
@@ -36,9 +39,12 @@ private ClientTcp clientTcp;
      * Connect to the server and send the pictures
      */
     private void startTransfer(Context context) {
-       final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-       final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
+        final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle("Picture Transfer").setContentText("Transfer in progress").setPriority(NotificationCompat.PRIORITY_LOW);
+        notificationManager.notify(1, builder.build());
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -46,18 +52,20 @@ private ClientTcp clientTcp;
                 clientTcp.ConnectToServer();
                 // Getting the Camera Folder
                 File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                List<File> pics = new ArrayList<File>();
+
                 if (dcim == null) {
                     return;
                 }
+                FindImages(dcim, pics);
                 //get pictures from file
-                File[] pics = dcim.listFiles();
-                if(pics == null) return;
-                int numberOfPics = pics.length;
-                for(int i = 0; i < numberOfPics; i++) {
-                    clientTcp.SendPicture(pics[i]);
-                    builder.setProgress(numberOfPics, i,false);
+                //File[] pics = dcim.listFiles();
+                if (pics.isEmpty()) return;
+                int numberOfPics = pics.size();
+                for (int i = 0; i < numberOfPics; i++) {
+                    clientTcp.SendPicture(pics.get(i));
+                    builder.setProgress(numberOfPics, i, false);
                     notificationManager.notify(1, builder.build());
-
                 }
                 // At the End
                 builder.setContentText("Sending complete").setProgress(0, 0, false);
@@ -68,4 +76,21 @@ private ClientTcp clientTcp;
 
     }
 
+    /**
+     * Find in recursion way all subfolders in direcory folder and adf to list.
+     * @param directory
+     * @param files
+     */
+    public void FindImages(File directory, List<File> files) {
+        // Get all the files from a directory.
+        File[] fList = directory.listFiles();
+        if(fList == null) return;
+        for (File file : fList) {
+            if (file.isFile()) {
+                files.add(file);
+            } else if (file.isDirectory()) {
+                FindImages(file, files);
+            }
+        }
     }
+}

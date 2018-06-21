@@ -29,7 +29,7 @@ public class ClientTcp  {
             //here you must put your computer's IP address.
             this.serverAddr = InetAddress.getByName("192.168.1.11");
             //create a socket to make the connection with the server
-            this.socket = new Socket(serverAddr, 8001);
+            this.socket = new Socket(serverAddr, 65534);
         } catch (Exception e) {
             Log.e("TCP", "C: Error", e);
             this.serverAddr = null;
@@ -49,10 +49,11 @@ public class ClientTcp  {
                 Bitmap bm = BitmapFactory.decodeStream(fis);
                 byte[] imgbyte = getBytesFromBitmap(bm);
                 byte[] picName = pic.getName().getBytes();
-                output.write(imgbyte.length);
+                int sizeOfPic = imgbyte.length;
+                int sizeOfName = picName.length;
+                output.write(sizeOfPic);
+                output.write(sizeOfName);
                 output.write(imgbyte);
-                output.flush();
-                output.write(picName.length);
                 output.write(picName);
                 output.flush();
         } catch (Exception e) {
@@ -65,6 +66,9 @@ public class ClientTcp  {
      */
     public void close() {
         try {
+            OutputStream output = socket.getOutputStream();
+            output.write(-1);
+            output.flush();
             this.socket.close();
         } catch (IOException e) {
             Log.e("TCP", "C: Error", e);
