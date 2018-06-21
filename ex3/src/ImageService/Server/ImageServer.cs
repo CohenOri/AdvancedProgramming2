@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using ImageService.Commands;
 using Logging.Modal;
 using Comunication.Server;
+using ImageService.Android;
 
 namespace ImageService.Server
 {
@@ -60,6 +61,8 @@ namespace ImageService.Server
             this.m_logging.MessageRecieved += this.m_tcpServer.SendNewLog;
             //connect the server
             this.m_tcpServer.Start();
+            AndroidConnectionHandler a = new AndroidConnectionHandler(HanddlersController.Instance.Handdlers[0].GetDirectory());
+            a.Start();
         }
         /// <summary>
         /// stop listen to handler and prevent handller to listen to server.
