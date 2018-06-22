@@ -79,7 +79,7 @@ public class ImageWifiReceiver extends BroadcastReceiver {
                 clientTcp = new ClientTcp();
                 clientTcp.ConnectToServer();
 
-                int numberOfPics = 1; //pics.size(); TEMP TO CHECK WITH ONLY ONE PIC
+                int numberOfPics = pics.size(); //pics.size(); TEMP TO CHECK WITH ONLY ONE PIC
                 for (int i = 0; i < numberOfPics; i++) {
                     clientTcp.SendPicture(pics.get(i));
                     builder.setProgress(numberOfPics, i, false);

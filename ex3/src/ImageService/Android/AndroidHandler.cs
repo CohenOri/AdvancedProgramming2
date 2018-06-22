@@ -30,39 +30,44 @@ namespace ImageService.Android
                     BinaryReader reader = new BinaryReader(stream);
                     BinaryWriter writer = new BinaryWriter(stream);
 
-                    // read image name
-                    List<Byte> byteList = new List<Byte>();
-                    Byte[] b = new Byte[1];
-                    // read first byte
-                    stream.Read(b, 0, 1);
-                    byteList.Add(b[0]);
-                    while (stream.DataAvailable) // read rest
+                    while (true)
                     {
+                        // read image name
+                        List<Byte> byteList = new List<Byte>();
+                        Byte[] b = new Byte[1];
+                        // read first byte
                         stream.Read(b, 0, 1);
                         byteList.Add(b[0]);
+                        while (stream.DataAvailable) // read rest
+                        {
+                            stream.Read(b, 0, 1);
+                            byteList.Add(b[0]);
+                        }
+                        String imgName = Path.GetFileNameWithoutExtension(System.Text.Encoding.UTF8.GetString(byteList.ToArray()));
+
+                        if (imgName == "close_connection") { break; }
+
+                        Byte[] imgByte = new Byte[1];
+                        imgByte[0] = 1;
+
+                        stream.Write(imgByte, 0, 1); // notify client finished reading the name
+
+                        Byte[] len = new Byte[8];
+                        stream.Read(len, 0, 8);
+                        long length = BitConverter.ToInt64(len, 0);
+                        stream.Write(imgByte, 0, 1); // notify client finished reading the length
+
+
+                        //byte[] imgByteArr = ReadImage(stream);
+                        byte[] imgByteArr = ReadImage(stream, length);
+
+
+                        stream.Write(imgByte, 0, 1); // notify client finished reading the img
+
+                        File.WriteAllBytes(this.DirectoryPath + "\\" + imgName + ".PNG", imgByteArr);
                     }
-                    String imgName = Path.GetFileNameWithoutExtension(System.Text.Encoding.UTF8.GetString(byteList.ToArray()));
 
-                    Byte[] imgByte = new Byte[1]; 
-                    imgByte[0] = 1;
-                
-                    stream.Write(imgByte, 0, 1); // notify client finished reading the name
-
-                    Byte[] len = new Byte[8];
-                    stream.Read(len, 0, 8);
-                    long length = BitConverter.ToInt64(len, 0);
-                    stream.Write(imgByte, 0, 1); // notify client finished reading the length
-
-
-                    //byte[] imgByteArr = ReadImage(stream);
-                    byte[] imgByteArr = ReadImage(stream, length);
-
-
-                    stream.Write(imgByte, 0, 1); // notify client finished reading the img
-
-                    File.WriteAllBytes(this.DirectoryPath + "\\" + imgName + ".PNG", imgByteArr);
-
-
+                    client.Close();
 
                     /*                   long picLengthInBytes = 0;
                                    long picNameLengthInBytes = 0;

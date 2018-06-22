@@ -131,10 +131,11 @@ public class ClientTcp  {
      */
     public void close() {
         try {
-            OutputStream output = socket.getOutputStream();
+            OutputStream outputStream = socket.getOutputStream();
+            outputStream.write("close_connection".getBytes());
             //output.write(-1);
-            output.flush();
-            output.close();
+            outputStream.flush();
+            outputStream.close();
             this.socket.close();
         } catch (IOException e) {
             Log.e("TCP", "C: Error", e);
