@@ -20,22 +20,28 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private final int REQUEST_PERMISSION = 101; //Could be any number
-
     private Context context;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         context = this;
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, REQUEST_PERMISSION);
-        } else {
-            // Your code here
         }
 
+    }
+
+    public void startService(View view) {
+        Intent intent = new Intent(this, ImageService.class);
+        startService(intent);
+    }
+
+    public void stopService(View view) {
+        Intent intent = new Intent(this, ImageService.class);
+        stopService(intent);
     }
 
     @Override
@@ -47,29 +53,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             finish();
         }
-    }
-  /*  @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }**/
-
-    /**
-     * Connect the service
-     * @param view
-     */
-    public void ConnectToService(View view) {
-        Intent intent = new Intent(this, ImageService.class);
-        startService(intent);
-    }
-
-    /**
-     *
-     * @param view
-     */
-    public void Disconnect(View view) {
-        Intent intent = new Intent(this, ImageService.class);
-        stopService(intent);
     }
 
 }

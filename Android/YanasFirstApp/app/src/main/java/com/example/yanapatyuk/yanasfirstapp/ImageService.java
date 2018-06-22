@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 public class ImageService extends Service {
     private ImageWifiReceiver receiver;
+    private IntentFilter theFilter;
     public ImageService() {
     }
 
@@ -20,13 +21,9 @@ public class ImageService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Here put the Code of Service
-        this.receiver = new ImageWifiReceiver();
-        IntentFilter theFilter = new IntentFilter();
+        this.theFilter = new IntentFilter();
         theFilter.addAction("android.net.wifi.supplicant.CONNECTION_CHANGE");
         theFilter.addAction("android.net.wifi.STATE_CHANGE");
-        // Registers the receiver so that your service will listen for broadcasts
-        this.registerReceiver(this.receiver, theFilter);
     }
 
     @Override
@@ -37,6 +34,12 @@ public class ImageService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flag, int startId) {
         Toast.makeText(this,"Service starting...", Toast.LENGTH_SHORT).show();
+        // Here put the Code of Service
+        this.receiver = new ImageWifiReceiver();
+
+        // Registers the receiver so that your service will listen for broadcasts
+        this.registerReceiver(this.receiver, theFilter);
+
         return START_STICKY;
     }
 

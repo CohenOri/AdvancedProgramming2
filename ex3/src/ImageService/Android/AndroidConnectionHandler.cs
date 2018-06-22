@@ -27,7 +27,7 @@ namespace ImageService.Android
         /// <param name="ch">client handler</param>
         public AndroidConnectionHandler(string directory)
         {
-            this.port = 8001;
+            this.port = 8005;
             this.handler = new AndroidHandler(directory);
         }
         /// <summary>
@@ -36,7 +36,7 @@ namespace ImageService.Android
         /// </summary>
         public void Start()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Any, port);
             listener = new TcpListener(ep);
             listener.Start();
             //start listen to clients

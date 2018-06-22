@@ -33,7 +33,7 @@
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
         android:layout_marginTop="52dp"
-        android:onClick="ConnectToService"
+        android:onClick="startService"
         android:text="הפעל SERVICE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -46,7 +46,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginTop="138dp"
-        android:onClick="Disconnect"
+        android:onClick="stopService"
         android:text="הפסק SERVICE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
