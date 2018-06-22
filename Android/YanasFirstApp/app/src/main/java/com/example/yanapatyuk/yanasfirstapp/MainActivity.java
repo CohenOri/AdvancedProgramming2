@@ -26,19 +26,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         context = this;
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, REQUEST_PERMISSION);
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {
+                                    Manifest.permission.READ_EXTERNAL_STORAGE }, REQUEST_PERMISSION);
         }
 
     }
-
+//start butten
     public void startService(View view) {
         Intent intent = new Intent(this, ImageService.class);
         startService(intent);
     }
-
+//stop butten
     public void stopService(View view) {
         Intent intent = new Intent(this, ImageService.class);
         stopService(intent);

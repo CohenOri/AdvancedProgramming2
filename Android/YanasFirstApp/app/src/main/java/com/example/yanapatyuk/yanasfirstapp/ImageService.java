@@ -24,21 +24,23 @@ public class ImageService extends Service {
         this.theFilter = new IntentFilter();
         theFilter.addAction("android.net.wifi.supplicant.CONNECTION_CHANGE");
         theFilter.addAction("android.net.wifi.STATE_CHANGE");
+        this.receiver = new ImageWifiReceiver();
+
+        // Registers the receiver so that your service will listen for broadcasts
+        this.registerReceiver(this.receiver, theFilter);
     }
 
     @Override
     public void onDestroy() {
         Toast.makeText(this,"Service ending...",Toast.LENGTH_SHORT).show();
+
+        this.unregisterReceiver(this.receiver);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flag, int startId) {
         Toast.makeText(this,"Service starting...", Toast.LENGTH_SHORT).show();
-        // Here put the Code of Service
-        this.receiver = new ImageWifiReceiver();
 
-        // Registers the receiver so that your service will listen for broadcasts
-        this.registerReceiver(this.receiver, theFilter);
 
         return START_STICKY;
     }
